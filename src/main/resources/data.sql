@@ -1,0 +1,67 @@
+
+INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
+VALUES (1, 'CHALET', 'Este piso es una ganga, compra, compra, COMPRA!!!!!', 300, null, null, null)
+;
+INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
+VALUES (2, 'FLAT', 'Nuevo ático céntrico recién reformado. No deje pasar la oportunidad y adquiera este ático de lujo', 300, null, null, null)
+;
+INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
+VALUES (3, 'CHALET', '', 300, null, null, null)
+;
+INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
+VALUES (4, 'FLAT', 'Ático céntrico muy luminoso y recién reformado, parece nuevo',300, null, null, null)
+;
+INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
+VALUES (5, 'FLAT', 'Pisazo,', 300, null, null, null)
+;
+INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
+VALUES (6, 'GARAGE', '', 300, null, null, null)
+;
+INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
+VALUES (7, 'GARAGE', 'Garaje en el centro de Albacete', 300, null, null, null)
+;
+
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (1, 'http://www.idealista.com/pictures/1', 'SD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (2, 'http://www.idealista.com/pictures/2', 'HD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (3, 'http://www.idealista.com/pictures/3', 'SD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (4, 'http://www.idealista.com/pictures/4', 'HD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (5, 'http://www.idealista.com/pictures/5', 'SD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (6, 'http://www.idealista.com/pictures/6', 'SD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (7, 'http://www.idealista.com/pictures/7', 'SD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (8, 'http://www.idealista.com/pictures/8', 'HD')
+;
+
+
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(2,4)
+;
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(3,2)
+;
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(4,5)
+;
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(5,3)
+;
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(5,8)
+;
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(6,6)
+;
