@@ -5,3 +5,10 @@ target/
 
 .project
 .classpath
+
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
