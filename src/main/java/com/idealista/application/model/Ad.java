@@ -21,7 +21,8 @@ public class Ad {
 
     public Ad() {}
 
-    public Ad(Integer id, String typology, String description, List<Picture> pictures, Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
+    public Ad(Integer id, String typology, String description, List<Picture> pictures,
+              Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
         this.id = id;
         this.typology = typology;
         this.description = description;
