@@ -4,6 +4,7 @@ import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.repository.AdRepository;
 import com.idealista.application.service.AdService;
 import com.idealista.application.model.vo.QualityAdVo;
+import com.idealista.application.service.factory.AdsFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,7 @@ public class AdServiceImpl implements AdService {
     public List<QualityAdVo> findAllQualityAds() {
         var ads = repository.findAll()
                 .stream()
-                // TODO: use factory
-                .map(ad -> new QualityAdVo())
+                .map(ad -> AdsFactory.createQualityAdVo(ad))
                 .collect(toList());
         return ads;
     }
