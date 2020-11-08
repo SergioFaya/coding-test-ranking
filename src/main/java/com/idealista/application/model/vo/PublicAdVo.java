@@ -1,8 +1,11 @@
-package com.idealista.infrastructure.api;
+package com.idealista.application.model.vo;
 
 import java.util.List;
 
-public class PublicAd {
+/**
+ * Basic instance of an Ad for the Idelista clients
+ */
+public class PublicAdVo {
 
     private Integer id;
     private String typology;

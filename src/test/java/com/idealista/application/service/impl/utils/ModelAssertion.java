@@ -3,11 +3,9 @@ package com.idealista.application.service.impl.utils;
 import com.idealista.application.model.Ad;
 import com.idealista.application.model.Picture;
 import com.idealista.application.model.vo.QualityAdVo;
-import com.idealista.infrastructure.api.PublicAd;
 import org.springframework.data.util.Pair;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
