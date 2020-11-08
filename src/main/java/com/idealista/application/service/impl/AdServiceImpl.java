@@ -1,5 +1,6 @@
 package com.idealista.application.service.impl;
 
+import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.repository.AdRepository;
 import com.idealista.application.service.AdService;
 import com.idealista.application.model.vo.QualityAdVo;
@@ -23,8 +24,12 @@ public class AdServiceImpl implements AdService {
     public List<QualityAdVo> findAllQualityAds() {
         var ads = repository.findAll()
                 .stream().map( ad -> new QualityAdVo(ad)).collect(toList());
-
         return ads;
+    }
+
+    @Override
+    public List<PublicAdVo> findAllPublicAds() {
+        return null;
     }
 
 }

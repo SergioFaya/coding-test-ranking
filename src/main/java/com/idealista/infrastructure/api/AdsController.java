@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.service.AdService;
 import org.springframework.beans.factory.InitializingBean;
@@ -34,7 +35,7 @@ public class AdsController implements InitializingBean {
     }
 
     //TODO añade url del endpoint
-    public ResponseEntity<List<PublicAd>> publicListing() {
+    public ResponseEntity<List<PublicAdVo>> publicListing() {
         //TODO rellena el cuerpo del método
         return ResponseEntity.notFound().build();
     }

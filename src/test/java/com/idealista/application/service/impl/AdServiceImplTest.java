@@ -19,8 +19,9 @@ public class AdServiceImplTest {
 
     private AdService adService;
 
-    List<Ad> ads;
-    List<Picture> pictures;
+    private List<Ad> ads;
+    private List<Picture> pictures;
+    
     @Before
     public void setUp(){
         ads = new ArrayList<>();
@@ -51,15 +52,15 @@ public class AdServiceImplTest {
     @Test
     public void shouldFindAllPublicAds(){
         // GIVEN
+        // TODO: add data for sorting
         var expected = ads.stream()
                 .sorted((ad1, ad2) -> Integer.compare( ad1.getScore(), ad2.getScore()) )
-                .map(it -> new PublicAdVo(it))
+                .map(it -> new PublicAdVo())
                 .collect(toList());
         // WHEN
         var actual = adService.findAllPublicAds();
         // THEN
         ModelAssertion.assertPublicAdVos(expected, actual);
-
     }
 
 
