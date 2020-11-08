@@ -13,11 +13,13 @@ import static org.junit.Assert.assertEquals;
 public class ModelAssertion {
 
     public static void assertAds(List<Ad> expected, List<Ad> actual) {
-        assertEquals(expected.size(), actual.size());
-        IntStream
-                .range(0, expected.size())
-                .mapToObj(i -> Pair.of(expected.get(i),actual.get(i)))
-                .forEach(it -> assertAd(it.getFirst(),it.getSecond()));
+        if(expected != null && actual!= null) {
+            assertEquals(expected.size(), actual.size());
+            IntStream
+                    .range(0, expected.size())
+                    .mapToObj(i -> Pair.of(expected.get(i), actual.get(i)))
+                    .forEach(it -> assertAd(it.getFirst(), it.getSecond()));
+        }
     }
 
     public static void assertAd(Ad expected, Ad actual){
@@ -33,11 +35,13 @@ public class ModelAssertion {
     }
 
     public static void assertPictures(List<Picture> expected, List<Picture> actual){
-        assertEquals(expected.size(), actual.size());
-        IntStream
-                .range(0, expected.size())
-                .mapToObj(i -> Pair.of(expected.get(i),actual.get(i)))
-                .forEach(it -> assertPicture(it.getFirst(),it.getSecond()));
+        if(expected != null && actual!= null){
+            assertEquals(expected.size(), actual.size());
+            IntStream
+                    .range(0, expected.size())
+                    .mapToObj(i -> Pair.of(expected.get(i),actual.get(i)))
+                    .forEach(it -> assertPicture(it.getFirst(),it.getSecond()));
+        }
     }
 
     public static void assertPicture(Picture expected, Picture actual){
