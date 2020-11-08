@@ -5,11 +5,11 @@ import com.idealista.application.model.Picture;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.service.AdService;
-import com.idealista.application.service.impl.utils.ModelAssertion;
+import com.idealista.application.utils.ModelAssertion;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.idealista.application.service.impl.utils.RepositoryMockFactory.createAdRepositoryMock;
+import static com.idealista.application.utils.RepositoryMockFactory.createAdRepositoryMock;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;

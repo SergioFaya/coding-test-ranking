@@ -1,4 +1,4 @@
-package com.idealista.application.service.impl.utils;
+package com.idealista.application.utils;
 
 import com.idealista.application.model.Ad;
 import com.idealista.application.model.Picture;
