@@ -5,11 +5,13 @@ import com.idealista.application.model.Picture;
 import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.service.AdService;
 import com.idealista.application.service.impl.utils.ModelAssertion;
+import com.idealista.infrastructure.api.PublicAd;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.idealista.application.service.impl.utils.RepositoryMockFactory.createAdRepositoryMock;
+import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,15 +40,29 @@ public class AdServiceImplTest {
     }
 
     @Test
-    public void shouldFindAll(){
+    public void shouldFindAllQualityAds(){
         // GIVEN
         var expected = ads.stream()
                 .map( it -> new QualityAdVo(it))
-                .collect(Collectors.toList());
+                .collect(toList());
         // WHEN
         var actual = adService.findAllQualityAds();
         // THEN
         ModelAssertion.assertQualityAdVos(expected, actual);
+    }
+
+    @Test
+    public void shouldFindAllPublicAds(){
+        // GIVEN
+        var expected = ads.stream()
+                .sorted((ad1, ad2) -> Integer.compare( ad1.getScore(), ad2.getScore()) )
+                .map(it -> new PublicAd(it))
+                .collect(toList());
+        // WHEN
+        var actual = adService.findAllPublicAds();
+        // THEN
+        ModelAssertion.assertPublicAdVos(expected, actual);
+
     }
 
 
