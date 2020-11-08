@@ -2,23 +2,20 @@ package com.idealista.application.service.impl;
 
 import com.idealista.application.model.Ad;
 import com.idealista.application.model.Picture;
-import com.idealista.application.repository.AdRepository;
+import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.service.AdService;
 import com.idealista.application.service.impl.utils.ModelAssertion;
-import com.idealista.infrastructure.api.QualityAd;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import static com.idealista.application.service.impl.utils.RepositoryMockFactory.createAdRepositoryMock;
-import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 public class AdServiceImplTest {
 
     private AdService adService;
@@ -41,10 +38,15 @@ public class AdServiceImplTest {
     }
 
     @Test
-    @Ignore
     public void shouldFindAll(){
-        List<Ad> actual = adService.findAll();
-        ModelAssertion.assertAds(ads, actual);
+        // GIVEN
+        var expected = ads.stream()
+                .map( it -> new QualityAdVo(it))
+                .collect(Collectors.toList());
+        // WHEN
+        var actual = adService.findAllQualityAds();
+        // THEN
+        ModelAssertion.assertQualityAdVos(expected, actual);
     }
 
 
