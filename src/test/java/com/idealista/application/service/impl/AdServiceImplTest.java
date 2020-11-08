@@ -41,7 +41,8 @@ public class AdServiceImplTest {
     public void shouldFindAllQualityAds(){
         // GIVEN
         var expected = ads.stream()
-                .map( it -> new QualityAdVo(it))
+                // TODO: use factory
+                .map( it -> new QualityAdVo())
                 .collect(toList());
         // WHEN
         var actual = adService.findAllQualityAds();
@@ -55,6 +56,7 @@ public class AdServiceImplTest {
         // TODO: add data for sorting
         var expected = ads.stream()
                 .sorted((ad1, ad2) -> Integer.compare( ad1.getScore(), ad2.getScore()) )
+                // TODO: use factory
                 .map(it -> new PublicAdVo())
                 .collect(toList());
         // WHEN

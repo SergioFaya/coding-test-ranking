@@ -19,28 +19,6 @@ public class QualityAdVo extends PublicAdVo{
     private Integer score;
     private Date irrelevantSince;
 
-    public QualityAdVo(Ad ad) {
-        Assert.notNull(ad, "Ad cannot be null when building QualityAd");
-        this.setId(ad.getId());
-        this.setTypology(ad.getTypology());
-        this.setDescription(ad.getDescription());
-        this.setPictures(ad.getPictures());
-        this.setHouseSize(ad.getHouseSize());
-        this.setGardenSize(ad.getGardenSize());
-        this.setScore(ad.getScore());
-        this.setIrrelevantSince(ad.getIrrelevantSince());
-    }
-
-    private void setPictures(List<Picture> pictures) {
-        if (pictures != null) {
-            var pictureUrls = pictures
-                    .stream()
-                    .map(Picture::getUrl).collect(toList());
-
-            this.setPictureUrls(pictureUrls);
-        }
-    }
-
     public Integer getScore() {
         return score;
     }
