@@ -24,7 +24,7 @@ public class AdsFactoryTest {
     public void setUp(){
         new Picture(4, "url", "HD");
         this.defaultAd_noPictures = new Ad(1, "CHALET", "Este piso es una ganga, compra, compra, COMPRA!!!!!",
-                null, 300, 10, 100, new Date());
+                Arrays.asList(), 300, 10, 100, new Date());
         this.defaultAd_withPictures = new Ad(1, "CHALET", "Este piso es una ganga, compra, compra, COMPRA!!!!!",
                 Arrays.asList(new Picture(1, "url", "HD"), new Picture(2, "url", "SD")),
                 300, 17, 10, new Date());

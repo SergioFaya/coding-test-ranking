@@ -1,5 +1,7 @@
 package com.idealista.application.model.vo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,6 +15,8 @@ public class PublicAdVo {
     private List<String> pictureUrls;
     private Integer houseSize;
     private Integer gardenSize;
+
+    public PublicAdVo() { this.pictureUrls = new ArrayList<>(); }
 
     public Integer getId() {
         return id;

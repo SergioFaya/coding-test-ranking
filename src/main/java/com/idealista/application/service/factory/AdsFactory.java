@@ -6,17 +6,42 @@ import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
+
 public class AdsFactory {
 
-    public static PublicAdVo createPublicAdVo(Ad ad){
-        // TODO:
+    private static void fillCommonFields(PublicAdVo vo, Ad ad){
+        vo.setId(ad.getId());
+        vo.setTypology(ad.getTypology());
+        vo.setDescription(ad.getDescription());
+        vo.setHouseSize(ad.getHouseSize());
+        vo.setGardenSize(ad.getGardenSize());
+        if(ad.getPictures()!= null){
+            vo.setPictureUrls(ad.getPictures()
+                    .stream()
+                    .map(Picture::getUrl)
+                    .collect(toList()));
+        }else{
+            vo.setPictureUrls(new ArrayList<>());
+        }
+    }
 
-        return null;
+    public static PublicAdVo createPublicAdVo(Ad ad){
+        var publicAd = new PublicAdVo();
+        fillCommonFields(publicAd, ad);
+        return publicAd;
     }
 
     public static QualityAdVo createQualityAdVo(Ad ad){
-        // TODO:
-        return null;
+        var qualityAd = new QualityAdVo();
+        fillCommonFields(qualityAd,ad);
+        qualityAd.setScore(ad.getScore());
+        qualityAd.setIrrelevantSince(ad.getIrrelevantSince());
+        return qualityAd;
     }
 
 }
