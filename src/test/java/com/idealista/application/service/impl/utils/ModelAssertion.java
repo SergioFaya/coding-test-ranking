@@ -2,12 +2,11 @@ package com.idealista.application.service.impl.utils;
 
 import com.idealista.application.model.Ad;
 import com.idealista.application.model.Picture;
+import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
-import com.idealista.infrastructure.api.PublicAd;
 import org.springframework.data.util.Pair;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
@@ -17,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ModelAssertion {
 
-    public static void assertPublicAdVos(List<PublicAd> expected, List<PublicAd> actual) {
+    public static void assertPublicAdVos(List<PublicAdVo> expected, List<PublicAdVo> actual) {
         if(expected != null && actual!= null) {
             assertEquals(expected.size(), actual.size());
             IntStream
@@ -27,7 +26,7 @@ public class ModelAssertion {
         }
     }
 
-    public static void assertPublicAdVo(PublicAd expected, PublicAd actual) {
+    public static void assertPublicAdVo(PublicAdVo expected, PublicAdVo actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getTypology(), actual.getTypology());
         assertEquals(expected.getDescription(), actual.getDescription());

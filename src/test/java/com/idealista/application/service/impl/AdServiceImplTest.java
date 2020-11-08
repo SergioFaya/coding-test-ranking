@@ -2,21 +2,18 @@ package com.idealista.application.service.impl;
 
 import com.idealista.application.model.Ad;
 import com.idealista.application.model.Picture;
+import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.service.AdService;
 import com.idealista.application.service.impl.utils.ModelAssertion;
-import com.idealista.infrastructure.api.PublicAd;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static com.idealista.application.service.impl.utils.RepositoryMockFactory.createAdRepositoryMock;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AdServiceImplTest {
 
@@ -56,7 +53,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expected = ads.stream()
                 .sorted((ad1, ad2) -> Integer.compare( ad1.getScore(), ad2.getScore()) )
-                .map(it -> new PublicAd(it))
+                .map(it -> new PublicAdVo(it))
                 .collect(toList());
         // WHEN
         var actual = adService.findAllPublicAds();
