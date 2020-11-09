@@ -23,7 +23,7 @@ public abstract class AbstractScoreComputer implements ScoreComputer {
 
     private static final int DESCRIPTION_POINTS = 5;
 
-    private static final int DESCRIPTION_KEYWORD_POINTS = 10;
+    private static final int DESCRIPTION_KEYWORD_POINTS = 5;
     private static final int COMPLETE_AD_POINTS = 40;
 
     private static final int MAX_SCORE = 100;
@@ -62,18 +62,21 @@ public abstract class AbstractScoreComputer implements ScoreComputer {
         int score = 0;
         if (StringUtils.hasText(description)) {
             score += DESCRIPTION_POINTS;
+            var words = Arrays.asList(description.split(WORD_SPLIT_REGEX));
+            score += evalDescriptionKeywords(words);
+            score += evalDescriptionByWordCount(words);
         }
-        var words = Arrays.asList(description.split(WORD_SPLIT_REGEX));
-        score += evalDescriptionKeywords(words);
-        score += evalDescriptionByWordCount(words);
         return score;
     }
 
-    private long evalDescriptionKeywords(List<String> words) {
-        var count = Arrays.asList(DescriptionKeywords.values())
-                .stream()
-                .filter(words::contains)
-                .count();
+    private int evalDescriptionKeywords(List<String> words) {
+        int count = 0;
+        for (DescriptionKeywords value : DescriptionKeywords.values()) {
+            var string = value.getValue();
+            if (words.contains(string)) {
+                count++;
+            }
+        }
         return count * DESCRIPTION_KEYWORD_POINTS;
     }
 

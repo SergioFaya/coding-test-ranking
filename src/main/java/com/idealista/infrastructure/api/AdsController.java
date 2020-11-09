@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,10 +45,14 @@ public class AdsController implements InitializingBean {
         }
     }
 
-    //TODO añade url del endpoint
+    @PostMapping(value = "/calculateScores")
     public ResponseEntity<Void> calculateScore() {
-        //TODO rellena el cuerpo del método
-        return ResponseEntity.notFound().build();
+        try {
+            this.adService.assignScoreForAllAds();
+            return ResponseEntity.accepted().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @Override

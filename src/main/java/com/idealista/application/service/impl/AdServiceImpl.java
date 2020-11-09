@@ -30,23 +30,21 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public List<QualityAdVo> findAllQualityAds() {
-        var ads = this.repository.findAll()
+        return this.repository.findAll()
                 .stream()
                 .map(AdsFactory::createQualityAdVo)
                 .collect(toList());
-        return ads;
     }
 
     @Override
     public List<PublicAdVo> findAllPublicAds() {
-        var ads = this.repository.findAll()
+        return this.repository.findAll()
                 .stream()
                 .filter(ad -> ad.getScore() >= PUBLIC_QUALITY_SCORE_REQUIRED)
                 .filter(this::isRelevant)
                 .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
                 .map(AdsFactory::createPublicAdVo)
                 .collect(toList());
-        return ads;
     }
 
     private boolean isRelevant(Ad ad) {
