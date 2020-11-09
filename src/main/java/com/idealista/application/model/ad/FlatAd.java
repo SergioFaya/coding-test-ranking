@@ -1,6 +1,7 @@
 package com.idealista.application.model.ad;
 
 import com.idealista.application.model.Picture;
+import com.idealista.application.model.enums.AdTypology;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
@@ -26,6 +27,11 @@ public class FlatAd extends Ad {
     public FlatAd(Integer id, String description, List<Picture> pictures, Integer size, Integer score,
                   Date irrelevantSince) {
         super(id, description, pictures, size, score, irrelevantSince);
+    }
+
+    @Override
+    public AdTypology getTypology() {
+        return AdTypology.FLAT;
     }
 
     @Override

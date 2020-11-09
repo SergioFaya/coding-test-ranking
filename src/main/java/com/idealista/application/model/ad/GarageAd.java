@@ -1,6 +1,7 @@
 package com.idealista.application.model.ad;
 
 import com.idealista.application.model.Picture;
+import com.idealista.application.model.enums.AdTypology;
 
 import javax.persistence.Entity;
 import java.util.Date;
@@ -19,6 +20,11 @@ public class GarageAd extends Ad {
     public GarageAd(Integer id, String description, List<Picture> pictures, Integer size, Integer score,
                     Date irrelevantSince) {
         super(id, description, pictures, size, score, irrelevantSince);
+    }
+
+    @Override
+    public AdTypology getTypology() {
+        return AdTypology.GARAGE;
     }
 
     @Override

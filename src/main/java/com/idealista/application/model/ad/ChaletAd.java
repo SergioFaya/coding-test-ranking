@@ -1,6 +1,7 @@
 package com.idealista.application.model.ad;
 
 import com.idealista.application.model.Picture;
+import com.idealista.application.model.enums.AdTypology;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
@@ -20,6 +21,11 @@ public class ChaletAd extends Ad {
 
     public ChaletAd() {
         super();
+    }
+
+    @Override
+    public AdTypology getTypology() {
+        return AdTypology.CHALET;
     }
 
     public ChaletAd(Integer id, String description, List<Picture> pictures, Integer size, Integer gardenSize,
