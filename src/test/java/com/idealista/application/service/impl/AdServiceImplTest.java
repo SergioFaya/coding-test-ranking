@@ -6,7 +6,7 @@ import com.idealista.application.model.ad.ChaletAd;
 import com.idealista.application.model.ad.FlatAd;
 import com.idealista.application.model.ad.GarageAd;
 import com.idealista.application.service.AdService;
-import com.idealista.application.service.factory.AdsFactory;
+import com.idealista.application.service.AdVoCreator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,7 +49,7 @@ public class AdServiceImplTest {
     public void shouldFindAllQualityAds() {
         // GIVEN
         var expected = this.ads.stream()
-                .map(ad -> AdsFactory.createQualityAdVo(ad))
+                .map(AdVoCreator::createQualityAd)
                 .collect(toList());
         // WHEN
         var actual = this.adService.findAllQualityAds();
@@ -64,7 +64,7 @@ public class AdServiceImplTest {
                 .filter(ad -> ad.getScore() >= 40)
                 .filter(ad -> ad.getIrrelevantSince() == null)
                 .sorted((ad1, ad2) -> Integer.compare(ad2.getScore(), ad1.getScore()))
-                .map(ad -> AdsFactory.createPublicAdVo(ad))
+                .map(AdVoCreator::createPublicAd)
                 .collect(toList());
         // WHEN
         var actual = this.adService.findAllPublicAds();

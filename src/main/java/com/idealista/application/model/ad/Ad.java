@@ -2,18 +2,21 @@ package com.idealista.application.model.ad;
 
 import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.AdTypology;
+import com.idealista.application.service.AdVoCreator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * Common behaviour of all {@link Ad} related to different locations
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Ad extends AbstractScoredAd {
+public abstract class Ad extends AbstractScoredAd implements AdVoCreator {
 
     @Id
     private Integer id;
@@ -21,7 +24,6 @@ public abstract class Ad extends AbstractScoredAd {
     @OneToMany
     private List<Picture> pictures;
     private Integer size;
-
     private Date irrelevantSince;
 
     protected Ad() {
@@ -37,7 +39,6 @@ public abstract class Ad extends AbstractScoredAd {
         this.irrelevantSince = irrelevantSince;
     }
 
-
     public Integer getId() {
         return this.id;
     }
@@ -51,14 +52,14 @@ public abstract class Ad extends AbstractScoredAd {
         return this.description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     private void checkDescription() {
         if (this.description == null) {
             this.description = "";
         }
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public List<Picture> getPictures() {
@@ -66,14 +67,18 @@ public abstract class Ad extends AbstractScoredAd {
         return this.pictures;
     }
 
-    private void checkPictures() {
-        if (this.pictures == null) {
-            this.pictures = new ArrayList<>();
-        }
+    public List<String> getPictureUrls() {
+        return getPictures().stream().map(Picture::getUrl).collect(toList());
     }
 
     public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    private void checkPictures() {
+        if (this.pictures == null) {
+            this.pictures = new ArrayList<>();
+        }
     }
 
     public Integer getSize() {

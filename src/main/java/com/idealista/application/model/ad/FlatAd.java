@@ -2,6 +2,8 @@ package com.idealista.application.model.ad;
 
 import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.AdTypology;
+import com.idealista.application.model.vo.PublicAdVo;
+import com.idealista.application.model.vo.QualityAdVo;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
@@ -50,5 +52,18 @@ public class FlatAd extends Ad {
         return StringUtils.hasText(getDescription())
                 && !getPictures().isEmpty()
                 && getSize() > 0;
+    }
+
+
+    @Override
+    public QualityAdVo createQualityAd() {
+        return new QualityAdVo(this.getId(), this.getTypology().name(), this.getDescription(), getPictureUrls(),
+                this.getSize(), 0, this.getScore(), this.getIrrelevantSince());
+    }
+
+    @Override
+    public PublicAdVo createPublicAd() {
+        return new PublicAdVo(this.getId(), this.getTypology().name(), this.getDescription(), getPictureUrls(),
+                this.getSize(), 0);
     }
 }

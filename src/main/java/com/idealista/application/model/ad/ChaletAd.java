@@ -2,6 +2,8 @@ package com.idealista.application.model.ad;
 
 import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.AdTypology;
+import com.idealista.application.model.vo.PublicAdVo;
+import com.idealista.application.model.vo.QualityAdVo;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
@@ -23,11 +25,6 @@ public class ChaletAd extends Ad {
         super();
     }
 
-    @Override
-    public AdTypology getTypology() {
-        return AdTypology.CHALET;
-    }
-
     public ChaletAd(Integer id, String description, List<Picture> pictures, Integer size, Integer gardenSize,
                     Integer score,
                     Date irrelevantSince) {
@@ -44,6 +41,11 @@ public class ChaletAd extends Ad {
     }
 
     @Override
+    public AdTypology getTypology() {
+        return AdTypology.CHALET;
+    }
+
+    @Override
     protected int evalDescriptionByWordCount(List<String> words) {
         if (words.size() > DESCRIPTION_LONG) {
             return DESCRIPTION_LONG_POINTS;
@@ -57,5 +59,17 @@ public class ChaletAd extends Ad {
                 && !getPictures().isEmpty()
                 && getSize() > 0
                 && getGardenSize() > 0;
+    }
+
+    @Override
+    public QualityAdVo createQualityAd() {
+        return new QualityAdVo(this.getId(), this.getTypology().name(), this.getDescription(), this.getPictureUrls(),
+                this.getSize(), this.getGardenSize(), this.getScore(), this.getIrrelevantSince());
+    }
+
+    @Override
+    public PublicAdVo createPublicAd() {
+        return new PublicAdVo(this.getId(), this.getTypology().name(), this.getDescription(), this.getPictureUrls(),
+                this.getSize(), this.getGardenSize());
     }
 }

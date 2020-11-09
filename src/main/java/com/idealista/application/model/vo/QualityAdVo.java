@@ -1,15 +1,23 @@
 package com.idealista.application.model.vo;
 
 import java.util.Date;
+import java.util.List;
 
 
 /**
  * In depth details of the Idealista ad for the quality team
  */
-public class QualityAdVo extends PublicAdVo{
+public class QualityAdVo extends PublicAdVo {
 
     private Integer score;
     private Date irrelevantSince;
+
+    public QualityAdVo(Integer id, String typology, String description, List<String> pictureUrls, Integer houseSize,
+                       Integer gardenSize, Integer score, Date irrelevantSince) {
+        super(id, typology, description, pictureUrls, houseSize, gardenSize);
+        this.score = score;
+        this.irrelevantSince = irrelevantSince;
+    }
 
     public Integer getScore() {
         return this.score;

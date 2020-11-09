@@ -19,6 +19,18 @@ public class PublicAdVo {
         this.pictureUrls = new ArrayList<>();
     }
 
+    public PublicAdVo(Integer id, String typology, String description, List<String> pictureUrls, Integer houseSize,
+                      Integer gardenSize) {
+        this();
+        this.id = id;
+        this.typology = typology;
+        this.description = description;
+        this.pictureUrls = pictureUrls;
+        this.houseSize = houseSize;
+        this.gardenSize = gardenSize;
+    }
+
+
     public Integer getId() {
         return this.id;
     }

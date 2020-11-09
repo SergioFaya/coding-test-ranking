@@ -5,7 +5,7 @@ import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.repository.AdRepository;
 import com.idealista.application.service.AdService;
-import com.idealista.application.service.factory.AdsFactory;
+import com.idealista.application.service.AdVoCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class AdServiceImpl implements AdService {
     public List<QualityAdVo> findAllQualityAds() {
         return this.repository.findAll()
                 .stream()
-                .map(AdsFactory::createQualityAdVo)
+                .map(AdVoCreator::createQualityAd)
                 .collect(toList());
     }
 
@@ -43,7 +43,7 @@ public class AdServiceImpl implements AdService {
                 .filter(this::isMinimumScore)
                 .filter(this::isRelevant)
                 .sorted(this::comparteByScoreDesc)
-                .map(AdsFactory::createPublicAdVo)
+                .map(AdVoCreator::createPublicAd)
                 .collect(toList());
     }
 
