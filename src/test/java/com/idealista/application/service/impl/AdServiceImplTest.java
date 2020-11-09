@@ -2,8 +2,6 @@ package com.idealista.application.service.impl;
 
 import com.idealista.application.model.Ad;
 import com.idealista.application.model.Picture;
-import com.idealista.application.model.vo.PublicAdVo;
-import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.service.AdService;
 import com.idealista.application.service.factory.AdsFactory;
 import com.idealista.application.utils.ModelAssertion;

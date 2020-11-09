@@ -1,14 +1,6 @@
 package com.idealista.application.model.vo;
 
-import com.idealista.application.model.Ad;
-import com.idealista.application.model.Picture;
-import org.springframework.util.Assert;
-
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.*;
 
 
 /**
@@ -20,7 +12,7 @@ public class QualityAdVo extends PublicAdVo{
     private Date irrelevantSince;
 
     public Integer getScore() {
-        return score;
+        return this.score;
     }
 
     public void setScore(Integer score) {
@@ -28,7 +20,7 @@ public class QualityAdVo extends PublicAdVo{
     }
 
     public Date getIrrelevantSince() {
-        return irrelevantSince;
+        return this.irrelevantSince;
     }
 
     public void setIrrelevantSince(Date irrelevantSince) {
