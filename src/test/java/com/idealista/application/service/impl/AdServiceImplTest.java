@@ -40,7 +40,8 @@ public class AdServiceImplTest {
         this.ads.add(new FlatAd(2, "Nuevo ático céntrico recién reformado. " +
                 "No deje pasar la oportunidad y adquiera este ático de lujo", this.pictures, 300,
                 100, new Date()));
-
+        this.ads.add(new GarageAd(3, "Nuevo ático céntrico recién reformado.", this.pictures, 300,
+                40, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(this.ads, null));
     }
 
@@ -60,6 +61,7 @@ public class AdServiceImplTest {
     public void shouldFindAllPublicAds() {
         // GIVEN
         var expected = this.ads.stream()
+                .filter(ad -> ad.getScore() > 40)
                 .sorted((ad1, ad2) -> Integer.compare(ad2.getScore(), ad1.getScore()))
                 .map(ad -> AdsFactory.createPublicAdVo(ad))
                 .collect(toList());

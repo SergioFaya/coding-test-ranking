@@ -15,6 +15,8 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class AdServiceImpl implements AdService {
 
+    private final static int PUBLIC_QUALITY_SCORE_REQUIRED = 40;
+
     @Autowired
     private AdRepository repository;
 
@@ -38,6 +40,7 @@ public class AdServiceImpl implements AdService {
     public List<PublicAdVo> findAllPublicAds() {
         var ads = this.repository.findAll()
                 .stream()
+                .filter(ad -> ad.getScore() > PUBLIC_QUALITY_SCORE_REQUIRED)
                 .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
                 .map(ad -> AdsFactory.createPublicAdVo(ad))
                 .collect(toList());
