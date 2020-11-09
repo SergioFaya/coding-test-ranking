@@ -12,30 +12,59 @@ import java.util.Optional;
 
 public class RepositoryMockFactory {
 
-    public static AdRepository createAdRepositoryMock(List<Ad> findAll){
+    public static AdRepository createAdRepositoryMock(List<Ad> findAll, List<Ad> updated) {
         return new AdRepository() {
             @Override
-            public List<Ad> findAll() { return findAll; }
+            public List<Ad> findAll() {
+                return findAll;
+            }
+
             @Override
-            public List<Ad> findAll(Sort sort) { return null; }
+            public List<Ad> findAll(Sort sort) {
+                return null;
+            }
+
             @Override
-            public Page<Ad> findAll(Pageable pageable) { return null; }
+            public Page<Ad> findAll(Pageable pageable) {
+                return null;
+            }
+
             @Override
-            public List<Ad> findAllById(Iterable<Long> iterable) { return null; }
+            public List<Ad> findAllById(Iterable<Long> iterable) {
+                return null;
+            }
+
             @Override
-            public long count() { return 0; }
+            public long count() {
+                return 0;
+            }
+
             @Override
-            public void deleteById(Long aLong) { }
+            public void deleteById(Long aLong) {
+            }
+
             @Override
-            public void delete(Ad ad) { }
+            public void delete(Ad ad) {
+            }
+
             @Override
-            public void deleteAll(Iterable<? extends Ad> iterable) { }
+            public void deleteAll(Iterable<? extends Ad> iterable) {
+            }
+
             @Override
-            public void deleteAll() { }
+            public void deleteAll() {
+            }
+
             @Override
-            public <S extends Ad> S save(S s) { return null; }
+            public <S extends Ad> S save(S s) {
+                updated.add(s);
+                return null;
+            }
+
             @Override
-            public <S extends Ad> List<S> saveAll(Iterable<S> iterable) { return null; }
+            public <S extends Ad> List<S> saveAll(Iterable<S> iterable) {
+                return null;
+            }
             @Override
             public Optional<Ad> findById(Long aLong) { return Optional.empty(); }
             @Override
