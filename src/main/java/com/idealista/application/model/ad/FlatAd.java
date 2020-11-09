@@ -3,9 +3,14 @@ package com.idealista.application.model.ad;
 import com.idealista.application.model.Picture;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * {@link Ad} implementation that represents a flat
+ */
+@Entity
 public class FlatAd extends Ad {
 
     private static final int DESCRIPTION_LONG_POINTS = 30;
@@ -13,6 +18,10 @@ public class FlatAd extends Ad {
 
     private static final int DESCRIPTION_MEDIUM_POINTS = 10;
     private static final int DESCRIPTION_MEDIUM_BOT = 20;
+
+    public FlatAd() {
+        super();
+    }
 
     public FlatAd(Integer id, String description, List<Picture> pictures, Integer size, Integer score,
                   Date irrelevantSince) {

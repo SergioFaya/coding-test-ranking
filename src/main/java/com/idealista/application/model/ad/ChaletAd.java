@@ -3,15 +3,24 @@ package com.idealista.application.model.ad;
 import com.idealista.application.model.Picture;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * {@link Ad} implementation that represents a chalet
+ */
+@Entity
 public class ChaletAd extends Ad {
 
     private static final int DESCRIPTION_LONG_POINTS = 20;
     private static final int DESCRIPTION_LONG = 50;
 
     private Integer gardenSize;
+
+    public ChaletAd() {
+        super();
+    }
 
     public ChaletAd(Integer id, String description, List<Picture> pictures, Integer size, Integer gardenSize,
                     Integer score,

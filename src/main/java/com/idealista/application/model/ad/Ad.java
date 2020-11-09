@@ -3,9 +3,7 @@ package com.idealista.application.model.ad;
 import com.idealista.application.model.Picture;
 import com.idealista.application.service.impl.AbstractScoreComputer;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +12,7 @@ import java.util.List;
  * Common behaviour of all {@link Ad} related to different locations
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Ad extends AbstractScoreComputer {
 
     @Id
@@ -24,6 +23,9 @@ public abstract class Ad extends AbstractScoreComputer {
     private Integer size;
     private Integer score;
     private Date irrelevantSince;
+
+    protected Ad() {
+    }
 
     protected Ad(Integer id, String description, List<Picture> pictures,
                  Integer size, Integer score, Date irrelevantSince) {
