@@ -54,7 +54,7 @@ public abstract class Ad extends AbstractScoreComputer {
 
     private void checkDescription() {
         if (this.description == null) {
-            this.description = new String();
+            this.description = "";
         }
     }
 

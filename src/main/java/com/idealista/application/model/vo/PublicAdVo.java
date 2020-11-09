@@ -1,7 +1,6 @@
 package com.idealista.application.model.vo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,10 +15,12 @@ public class PublicAdVo {
     private Integer houseSize;
     private Integer gardenSize;
 
-    public PublicAdVo() { this.pictureUrls = new ArrayList<>(); }
+    public PublicAdVo() {
+        this.pictureUrls = new ArrayList<>();
+    }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -27,7 +28,7 @@ public class PublicAdVo {
     }
 
     public String getTypology() {
-        return typology;
+        return this.typology;
     }
 
     public void setTypology(String typology) {
@@ -35,7 +36,7 @@ public class PublicAdVo {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -43,7 +44,7 @@ public class PublicAdVo {
     }
 
     public List<String> getPictureUrls() {
-        return pictureUrls;
+        return this.pictureUrls;
     }
 
     public void setPictureUrls(List<String> pictureUrls) {
@@ -51,7 +52,7 @@ public class PublicAdVo {
     }
 
     public Integer getHouseSize() {
-        return houseSize;
+        return this.houseSize;
     }
 
     public void setHouseSize(Integer houseSize) {
@@ -59,7 +60,7 @@ public class PublicAdVo {
     }
 
     public Integer getGardenSize() {
-        return gardenSize;
+        return this.gardenSize;
     }
 
     public void setGardenSize(Integer gardenSize) {

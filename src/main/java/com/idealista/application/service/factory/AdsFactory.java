@@ -10,7 +10,13 @@ import java.util.ArrayList;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Factory for creating the view objects related to Ads
+ */
 public class AdsFactory {
+
+    private AdsFactory() {
+    }
 
     public static PublicAdVo createPublicAdVo(Ad ad) {
         var publicAd = new PublicAdVo();

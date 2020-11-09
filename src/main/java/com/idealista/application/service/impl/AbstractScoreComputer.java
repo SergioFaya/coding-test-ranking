@@ -69,17 +69,17 @@ public abstract class AbstractScoreComputer implements ScoreComputer {
         return score;
     }
 
-    private int evalDescriptionKeywords(List<String> words) {
+    private long evalDescriptionKeywords(List<String> words) {
         var count = Arrays.asList(DescriptionKeywords.values())
                 .stream()
-                .filter(keyword -> words.contains(keyword))
+                .filter(words::contains)
                 .count();
-        return Long.valueOf(count * DESCRIPTION_KEYWORD_POINTS).intValue();
+        return count * DESCRIPTION_KEYWORD_POINTS;
     }
 
     private int evalPictures(List<Picture> pictures) {
         return pictures.stream()
-                .map(picture -> evalPicture(picture))
+                .map(this::evalPicture)
                 .reduce((i1, i2) -> i1 + i2)
                 .orElse(NO_PIC_POINTS);
     }

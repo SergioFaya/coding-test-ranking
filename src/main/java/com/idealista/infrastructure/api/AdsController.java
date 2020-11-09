@@ -1,10 +1,5 @@
 package com.idealista.infrastructure.api;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-import com.idealista.application.model.Picture;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.service.AdService;
@@ -17,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/ads")
 public class AdsController implements InitializingBean {
@@ -28,9 +26,9 @@ public class AdsController implements InitializingBean {
     public ResponseEntity<List<QualityAdVo>> qualityListing() {
         try {
             List<QualityAdVo> ads = new ArrayList<>();
-            ads.addAll(adService.findAllQualityAds());
+            ads.addAll(this.adService.findAllQualityAds());
             return ResponseEntity.accepted().body(ads);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -39,9 +37,9 @@ public class AdsController implements InitializingBean {
     public ResponseEntity<List<PublicAdVo>> publicListing() {
         try {
             List<PublicAdVo> ads = new ArrayList<>();
-            ads.addAll(adService.findAllPublicAds());
+            ads.addAll(this.adService.findAllPublicAds());
             return ResponseEntity.accepted().body(ads);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -54,6 +52,6 @@ public class AdsController implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.notNull(adService, "qualityAdService must be injected");
+        Assert.notNull(this.adService, "qualityAdService must be injected");
     }
 }
