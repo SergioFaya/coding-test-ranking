@@ -2,7 +2,6 @@ package com.idealista.application.model.ad;
 
 import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.AdTypology;
-import com.idealista.application.service.impl.AbstractScoreComputer;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Ad extends AbstractScoreComputer {
+public abstract class Ad extends AbstractScoredAd {
 
     @Id
     private Integer id;
@@ -22,7 +21,7 @@ public abstract class Ad extends AbstractScoreComputer {
     @OneToMany
     private List<Picture> pictures;
     private Integer size;
-    private Integer score;
+
     private Date irrelevantSince;
 
     protected Ad() {
@@ -30,11 +29,11 @@ public abstract class Ad extends AbstractScoreComputer {
 
     protected Ad(Integer id, String description, List<Picture> pictures,
                  Integer size, Integer score, Date irrelevantSince) {
+        super(score);
         this.id = id;
         this.description = description;
         this.pictures = pictures;
         this.size = size;
-        this.score = score;
         this.irrelevantSince = irrelevantSince;
     }
 
@@ -90,21 +89,6 @@ public abstract class Ad extends AbstractScoreComputer {
         if (this.size == null) {
             this.size = Integer.valueOf(0);
         }
-    }
-
-    public Integer getScore() {
-        checkScore();
-        return this.score;
-    }
-
-    private void checkScore() {
-        if (this.score == null) {
-            this.score = Integer.valueOf(0);
-        }
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
     }
 
     public Date getIrrelevantSince() {

@@ -1,17 +1,16 @@
-package com.idealista.application.service.impl;
+package com.idealista.application.model.ad;
 
 import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.DescriptionKeywords;
 import com.idealista.application.model.enums.PictureQuality;
-import com.idealista.application.service.ScoreComputer;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.persistence.MappedSuperclass;
 import java.util.Arrays;
 import java.util.List;
 
-@Service
-public abstract class AbstractScoreComputer implements ScoreComputer {
+@MappedSuperclass
+public abstract class AbstractScoredAd {
 
     private static final String WORD_SPLIT_REGEX = " +";
 
@@ -29,55 +28,55 @@ public abstract class AbstractScoreComputer implements ScoreComputer {
     private static final int MAX_SCORE = 100;
     private static final int MIN_SCORE = 0;
 
+    private Integer score;
 
-    public final int computeScore() {
-        int score = 0;
-        score += evalPictures(getPictures());
-        score += evalDescription(getDescription());
-        if (isComplete()) {
-            score += COMPLETE_AD_POINTS;
-        }
-        return boundScore(score);
+    protected AbstractScoredAd() {
     }
 
-    protected abstract int evalDescriptionByWordCount(List<String> words);
+    protected AbstractScoredAd(Integer score) {
+        this.score = score;
+    }
 
-    protected abstract List<Picture> getPictures();
+    public final void computeScore() {
+        int points = 0;
+        points += evalPictures(getPictures());
+        points += evalDescription(getDescription());
+        if (isComplete()) {
+            points += COMPLETE_AD_POINTS;
+        }
+        this.score = boundScore(points);
+    }
 
-    protected abstract String getDescription();
-
-    protected abstract boolean isComplete();
-
-    private int boundScore(int score) {
-        if (score > MAX_SCORE) {
+    private int boundScore(int points) {
+        if (points > MAX_SCORE) {
             return MAX_SCORE;
-        } else if (score < MIN_SCORE) {
+        } else if (points < MIN_SCORE) {
             return MIN_SCORE;
         } else {
-            return score;
+            return points;
         }
     }
 
     private int evalDescription(String description) {
-        int score = 0;
+        int points = 0;
         if (StringUtils.hasText(description)) {
-            score += DESCRIPTION_POINTS;
+            points += DESCRIPTION_POINTS;
             var words = Arrays.asList(description.split(WORD_SPLIT_REGEX));
-            score += evalDescriptionKeywords(words);
-            score += evalDescriptionByWordCount(words);
+            points += evalDescriptionKeywords(words);
+            points += evalDescriptionByWordCount(words);
         }
-        return score;
+        return points;
     }
 
     private int evalDescriptionKeywords(List<String> words) {
-        int count = 0;
+        int points = 0;
         for (DescriptionKeywords value : DescriptionKeywords.values()) {
             var string = value.getValue();
             if (words.contains(string)) {
-                count++;
+                points++;
             }
         }
-        return count * DESCRIPTION_KEYWORD_POINTS;
+        return points * DESCRIPTION_KEYWORD_POINTS;
     }
 
     private int evalPictures(List<Picture> pictures) {
@@ -95,5 +94,26 @@ public abstract class AbstractScoreComputer implements ScoreComputer {
         }
     }
 
+    public Integer getScore() {
+        checkScore();
+        return this.score;
+    }
 
+    private void checkScore() {
+        if (this.score == null) {
+            this.score = Integer.valueOf(0);
+        }
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    protected abstract int evalDescriptionByWordCount(List<String> words);
+
+    protected abstract List<Picture> getPictures();
+
+    protected abstract String getDescription();
+
+    protected abstract boolean isComplete();
 }

@@ -40,11 +40,19 @@ public class AdServiceImpl implements AdService {
     public List<PublicAdVo> findAllPublicAds() {
         return this.repository.findAll()
                 .stream()
-                .filter(ad -> ad.getScore() >= PUBLIC_QUALITY_SCORE_REQUIRED)
+                .filter(this::isMinimumScore)
                 .filter(this::isRelevant)
-                .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
+                .sorted(this::comparteByScoreDesc)
                 .map(AdsFactory::createPublicAdVo)
                 .collect(toList());
+    }
+
+    private int comparteByScoreDesc(Ad o1, Ad o2) {
+        return Integer.compare(o2.getScore(), o1.getScore());
+    }
+
+    private boolean isMinimumScore(Ad ad) {
+        return ad.getScore() >= PUBLIC_QUALITY_SCORE_REQUIRED;
     }
 
     private boolean isRelevant(Ad ad) {
@@ -56,12 +64,11 @@ public class AdServiceImpl implements AdService {
      */
     @Override
     public void assignScoreForAllAds() {
-        this.repository.findAll()
-                .stream()
-                .forEach(ad -> {
-                    ad.setScore(ad.computeScore());
-                    this.repository.save(ad);
-                });
+        var ads = this.repository.findAll();
+        for (Ad ad : ads) {
+            ad.computeScore();
+            this.repository.save(ad);
+        }
     }
 
 

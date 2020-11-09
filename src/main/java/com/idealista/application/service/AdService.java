@@ -15,14 +15,17 @@ public interface AdService {
     List<QualityAdVo> findAllQualityAds();
 
     /**
-     * Gets all Ads for the public listing on the website
+     * Gets all Ads for the public listing on the website,
+     * sorted by score desc
+     * filtering irrelevant ads
+     * filtering ads with relevant score
      *
      * @return the list of {@link PublicAdVo}
      */
     List<PublicAdVo> findAllPublicAds();
 
     /**
-     * Computes the score of the ads in the db.
+     * Computes the score of the ads and stores it in the db.
      */
     void assignScoreForAllAds();
 }
