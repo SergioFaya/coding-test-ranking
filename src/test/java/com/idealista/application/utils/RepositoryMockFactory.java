@@ -1,6 +1,6 @@
 package com.idealista.application.utils;
 
-import com.idealista.application.model.Ad;
+import com.idealista.application.model.ad.Ad;
 import com.idealista.application.repository.AdRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -65,32 +65,68 @@ public class RepositoryMockFactory {
             public <S extends Ad> List<S> saveAll(Iterable<S> iterable) {
                 return null;
             }
+
             @Override
-            public Optional<Ad> findById(Long aLong) { return Optional.empty(); }
+            public Optional<Ad> findById(Long aLong) {
+                return Optional.empty();
+            }
+
             @Override
-            public boolean existsById(Long aLong) { return false; }
+            public boolean existsById(Long aLong) {
+                return false;
+            }
+
             @Override
-            public void flush() { }
+            public void flush() {
+            }
+
             @Override
-            public <S extends Ad> S saveAndFlush(S s) { return null; }
+            public <S extends Ad> S saveAndFlush(S s) {
+                return null;
+            }
+
             @Override
-            public void deleteInBatch(Iterable<Ad> iterable) { }
+            public void deleteInBatch(Iterable<Ad> iterable) {
+            }
+
             @Override
-            public void deleteAllInBatch() { }
+            public void deleteAllInBatch() {
+            }
+
             @Override
-            public Ad getOne(Long aLong) { return null; }
+            public Ad getOne(Long aLong) {
+                return null;
+            }
+
             @Override
-            public <S extends Ad> Optional<S> findOne(Example<S> example) { return Optional.empty(); }
+            public <S extends Ad> Optional<S> findOne(Example<S> example) {
+                return Optional.empty();
+            }
+
             @Override
-            public <S extends Ad> List<S> findAll(Example<S> example) { return null; }
+            public <S extends Ad> List<S> findAll(Example<S> example) {
+                return null;
+            }
+
             @Override
-            public <S extends Ad> List<S> findAll(Example<S> example, Sort sort) { return null; }
+            public <S extends Ad> List<S> findAll(Example<S> example, Sort sort) {
+                return null;
+            }
+
             @Override
-            public <S extends Ad> Page<S> findAll(Example<S> example, Pageable pageable) { return null; }
+            public <S extends Ad> Page<S> findAll(Example<S> example, Pageable pageable) {
+                return null;
+            }
+
             @Override
-            public <S extends Ad> long count(Example<S> example) { return 0; }
+            public <S extends Ad> long count(Example<S> example) {
+                return 0;
+            }
+
             @Override
-            public <S extends Ad> boolean exists(Example<S> example) { return false; }
+            public <S extends Ad> boolean exists(Example<S> example) {
+                return false;
+            }
         };
     }
 

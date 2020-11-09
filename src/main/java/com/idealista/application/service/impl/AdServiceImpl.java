@@ -50,7 +50,12 @@ public class AdServiceImpl implements AdService {
      */
     @Override
     public void assignScoreForAllAds() {
-        // TODO: implement
+        this.repository.findAll()
+                .stream()
+                .forEach(ad -> {
+                    ad.setScore(ad.computeScore());
+                    this.repository.save(ad);
+                });
     }
 
 

@@ -1,7 +1,10 @@
 package com.idealista.application.service.impl;
 
-import com.idealista.application.model.Ad;
 import com.idealista.application.model.Picture;
+import com.idealista.application.model.ad.Ad;
+import com.idealista.application.model.ad.ChaletAd;
+import com.idealista.application.model.ad.FlatAd;
+import com.idealista.application.model.ad.GarageAd;
 import com.idealista.application.service.AdService;
 import com.idealista.application.service.factory.AdsFactory;
 import org.junit.Before;
@@ -12,7 +15,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static com.idealista.application.model.enums.AdTypology.*;
 import static com.idealista.application.model.enums.DescriptionKeywords.*;
 import static com.idealista.application.model.enums.PictureQuality.HD;
 import static com.idealista.application.model.enums.PictureQuality.SD;
@@ -33,11 +35,11 @@ public class AdServiceImplTest {
         this.pictures = new ArrayList<>();
 
         this.pictures.add(new Picture(4, "url", HD));
-        this.ads.add(new Ad(1, CHALET, "Este piso es una ganga, compra, compra, COMPRA!!!!!",
+        this.ads.add(new ChaletAd(1, "Este piso es una ganga, compra, compra, COMPRA!!!!!",
                 Arrays.asList(), 300, 100, 30, new Date()));
-        this.ads.add(new Ad(2, FLAT, "Nuevo ático céntrico recién reformado. " +
+        this.ads.add(new FlatAd(2, "Nuevo ático céntrico recién reformado. " +
                 "No deje pasar la oportunidad y adquiera este ático de lujo", this.pictures, 300,
-                10, 100, new Date()));
+                100, new Date()));
 
         this.adService = new AdServiceImpl(createAdRepositoryMock(this.ads, null));
     }
@@ -70,56 +72,71 @@ public class AdServiceImplTest {
     @Test
     public void shouldAssignScoreForAllAds_noPictures() {
         // GIVEN
+        var expectedScore = 0;
         var updated = new ArrayList<Ad>();
-        var expected = Arrays.asList(new Ad(1, FLAT, "",
-                Arrays.asList(), 10, 10, 0, new Date()));
-        this.adService = new AdServiceImpl(createAdRepositoryMock(this.ads, updated));
+        List<Ad> data = Arrays.asList(new FlatAd(1, "",
+                Arrays.asList(), 10, null, new Date()));
+        this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
         // THEN
-        assertAds(expected, updated);
+        assertAds(data.stream().map(ad -> {
+            ad.setScore(expectedScore);
+            return ad;
+        }).collect(toList()), updated);
     }
 
     @Test
     public void shouldAssignScoreForAllAds_HDPhoto() {
         // GIVEN
+        var expectedScore = 20;
         var updated = new ArrayList<Ad>();
         var pictures = Arrays.asList(new Picture(1, "url", HD));
-        var expected = Arrays.asList(new Ad(1, FLAT, "",
-                Arrays.asList(), 10, 10, 20, new Date()));
-        this.adService = new AdServiceImpl(createAdRepositoryMock(this.ads, updated));
+        List<Ad> data = Arrays.asList(new FlatAd(1, "", Arrays.asList(), 10, null, new Date()));
+        this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
         // THEN
-        assertAds(expected, updated);
+        assertAds(data.stream().map(ad -> {
+            ad.setScore(expectedScore);
+            return ad;
+        }).collect(toList()), updated);
     }
 
     @Test
     public void shouldAssignScoreForAllAds_SDPhoto() {
         // GIVEN
+        var expectedScore = 10;
         var updated = new ArrayList<Ad>();
         var pictures = Arrays.asList(new Picture(1, "url", SD));
-        var expected = Arrays.asList(new Ad(1, FLAT, "",
-                Arrays.asList(), 10, 10, 10, new Date()));
-        this.adService = new AdServiceImpl(createAdRepositoryMock(this.ads, updated));
+        List<Ad> data = Arrays.asList(new FlatAd(1, "",
+                Arrays.asList(), 10, null, new Date()));
+        this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
         // THEN
-        assertAds(expected, updated);
+        assertAds(data.stream().map(ad -> {
+            ad.setScore(expectedScore);
+            return ad;
+        }).collect(toList()), updated);
     }
 
     @Test
     public void shouldAssignScoreForAllAds_HDandSDPhoto() {
         // GIVEN
+        var expectedScore = 30;
         var updated = new ArrayList<Ad>();
         var pictures = Arrays.asList(new Picture(1, "url", HD));
-        var expected = Arrays.asList(new Ad(1, FLAT, "",
-                Arrays.asList(), 10, 10, 30, new Date()));
-        this.adService = new AdServiceImpl(createAdRepositoryMock(this.ads, updated));
+        List<Ad> data = Arrays.asList(new FlatAd(1, "",
+                Arrays.asList(), 10, null, new Date()));
+        this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
         // THEN
-        assertAds(expected, updated);
+        assertAds(data.stream().map(ad -> {
+            ad.setScore(expectedScore);
+            return ad;
+        }).collect(toList()), updated);
     }
 
     @Test
@@ -127,8 +144,8 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 5;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, FLAT, "description",
-                Arrays.asList(), 10, 10, null, new Date()));
+        List<Ad> data = Arrays.asList(new FlatAd(1, "description",
+                Arrays.asList(), 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
@@ -144,9 +161,10 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 5;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, FLAT, "Duis feugiat nibh non nulla mollis pellentesque. Nullam quis " +
+        List<Ad> data = Arrays.asList(new FlatAd(1, "Duis feugiat nibh non nulla mollis pellentesque. Nullam " +
+                "quis " +
                 "arcu augue. Suspendisse at dolor eget massa facilisis aliquet ut.",
-                Arrays.asList(), 10, 10, null, new Date()));
+                Arrays.asList(), 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
@@ -163,9 +181,9 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 10;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, FLAT, "Duis feugiat nibh non nulla mollis pellentesque. Nullam quis " +
+        List<Ad> data = Arrays.asList(new FlatAd(1, "Duis feugiat nibh non nulla mollis pellentesque. Nullam quis " +
                 "arcu augue. Suspendisse at dolor eget massa facilisis aliquet eu ut.",
-                Arrays.asList(), 10, 10, null, new Date()));
+                Arrays.asList(), 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
@@ -181,11 +199,11 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 10;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, FLAT, "Nulla accumsan, elit vestibulum ultricies aliquet, mi mi " +
+        List<Ad> data = Arrays.asList(new FlatAd(1, "Nulla accumsan, elit vestibulum ultricies aliquet, mi mi " +
                 "lacinia massa, nec vestibulum lacus turpis ac tortor. Fusce nulla nunc, malesuada in nisi in, cursus" +
                 " auctor lectus.  Vestibulum laoreet purus felis, eu varius nulla efficitur sit amet. Donec auctor " +
                 "ultrices ex, ac scelerisque  lorem malesuada in. Donec accumsan eget ipsum.",
-                Arrays.asList(), 10, 10, null, new Date()));
+                Arrays.asList(), 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
@@ -201,11 +219,12 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 30;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, FLAT, "Sed et vulputate est, non faucibus ligula. Phasellus tempus pretium ligula, " +
+        List<Ad> data = Arrays.asList(new FlatAd(1, "Sed et vulputate est, non faucibus ligula. Phasellus tempus " +
+                "pretium ligula, " +
                 "non ullamcorper neque. Fusce tristique neque id tempus ornare. Nunc tincidunt libero id dolor " +
                 "lobortis, at dictum neque hendrerit. Suspendisse sit amet bibendum dolor, non cursus orci. Duis " +
                 "dapibus purus eget sem scelerisque, nec pellentesque ipsum consectetur. Mauris in.",
-                Arrays.asList(), 10, 10, null, new Date()));
+                Arrays.asList(), 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
@@ -221,13 +240,13 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 30;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, FLAT, "Aliquam vehicula enim eu turpis placerat venenatis. Ut vel " +
+        List<Ad> data = Arrays.asList(new FlatAd(1, "Aliquam vehicula enim eu turpis placerat venenatis. Ut vel " +
                 "sapien sed sapien porta ultrices ac nec felis. Donec ac ultrices erat, a efficitur magna. Cras " +
                 "posuere mollis ligula ut sodales. Fusce efficitur arcu nec nulla accumsan finibus. Aenean mi mi, " +
                 "accumsan sit amet vulputate eu, maximus ac ante. Class aptent taciti sociosqu ad litora torquent per" +
                 " conubia nostra, per inceptos himenaeos. Suspendisse non bibendum lacus. Etiam pulvinar ornare diam," +
                 " in commodo dolor ultrices quis. Nunc ornare orci a pulvinar auctor.",
-                Arrays.asList(), 10, 10, null, new Date()));
+                Arrays.asList(), 10, 10, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
@@ -243,7 +262,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 5;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "description",
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "description",
                 Arrays.asList(), 10, 10, null, new Date()));
 
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
@@ -261,7 +280,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 5;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "Pellentesque sed eros non nisi tincidunt efficitur sed sit " +
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "Pellentesque sed eros non nisi tincidunt efficitur sed sit " +
                 "amet lorem. Nunc eget mi nec diam vehicula vulputate. Integer.",
                 Arrays.asList(), 10, 10, null, new Date()));
 
@@ -281,7 +300,8 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 5;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "Duis feugiat nibh non nulla mollis pellentesque. Nullam quis " +
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "Duis feugiat nibh non nulla mollis pellentesque. Nullam quis" +
+                " " +
                 "arcu augue. Suspendisse at dolor eget massa facilisis aliquet eu ut.",
                 Arrays.asList(), 10, 10, null, new Date()));
 
@@ -300,7 +320,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 5;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "Nulla accumsan, elit vestibulum ultricies aliquet, mi mi " +
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "Nulla accumsan, elit vestibulum ultricies aliquet, mi mi " +
                 "lacinia massa, nec vestibulum lacus turpis ac tortor. Fusce nulla nunc, malesuada in nisi in, cursus" +
                 " auctor lectus.  Vestibulum laoreet purus felis, eu varius nulla efficitur sit amet. Donec auctor " +
                 "ultrices ex, ac scelerisque  lorem malesuada in. Donec accumsan eget ipsum.",
@@ -321,7 +341,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 5;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "Sed et vulputate est, non faucibus ligula. Phasellus tempus " +
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "Sed et vulputate est, non faucibus ligula. Phasellus tempus " +
                 "pretium ligula, " +
                 "non ullamcorper neque. Fusce tristique neque id tempus ornare. Nunc tincidunt libero id dolor " +
                 "lobortis, at dictum neque hendrerit. Suspendisse sit amet bibendum dolor, non cursus orci. Duis " +
@@ -343,7 +363,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 20;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "Aliquam vehicula enim eu turpis placerat venenatis. Ut vel " +
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "Aliquam vehicula enim eu turpis placerat venenatis. Ut vel " +
                 "sapien sed sapien porta ultrices ac nec felis. Donec ac ultrices erat, a efficitur magna. Cras " +
                 "posuere mollis ligula ut sodales. Fusce efficitur arcu nec nulla accumsan finibus. Aenean mi mi, " +
                 "accumsan sit amet vulputate eu, maximus ac ante. Class aptent taciti sociosqu ad litora torquent per" +
@@ -366,7 +386,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 10;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "descripcion " + BRIGHT,
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "descripcion " + BRIGHT,
                 Arrays.asList(), 10, 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
@@ -383,7 +403,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 10;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "descripcion " + NEW,
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "descripcion " + NEW,
                 Arrays.asList(), 10, 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
@@ -400,7 +420,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 10;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "descripcion " + DOWNTOWN,
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "descripcion " + DOWNTOWN,
                 Arrays.asList(), 10, 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
@@ -417,7 +437,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 10;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "descripcion " + REFORMED,
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "descripcion " + REFORMED,
                 Arrays.asList(), 10, 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
@@ -434,7 +454,7 @@ public class AdServiceImplTest {
         // GIVEN
         var expectedScore = 10;
         var updated = new ArrayList<Ad>();
-        var data = Arrays.asList(new Ad(1, CHALET, "descripcion " + ATTIC,
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "descripcion " + ATTIC,
                 Arrays.asList(), 10, 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
@@ -452,8 +472,8 @@ public class AdServiceImplTest {
         var expectedScore = 40 + 5 + 20;
         var updated = new ArrayList<Ad>();
         var pictures = Arrays.asList(new Picture(1, "url", HD));
-        var data = Arrays.asList(new Ad(1, FLAT, "piso completo",
-                pictures, 10, null, null, new Date()));
+        List<Ad> data = Arrays.asList(new FlatAd(1, "piso completo",
+                pictures, 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();
@@ -470,7 +490,7 @@ public class AdServiceImplTest {
         var expectedScore = 40 + 5 + 20;
         var updated = new ArrayList<Ad>();
         var pictures = Arrays.asList(new Picture(1, "url", HD));
-        var data = Arrays.asList(new Ad(1, CHALET, "chalet completo",
+        List<Ad> data = Arrays.asList(new ChaletAd(1, "chalet completo",
                 pictures, 100, 12, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
@@ -488,8 +508,8 @@ public class AdServiceImplTest {
         var expectedScore = 40 + 5 + 20;
         var updated = new ArrayList<Ad>();
         var pictures = Arrays.asList(new Picture(1, "url", HD));
-        var data = Arrays.asList(new Ad(1, GARAGE, "",
-                pictures, 10, 10, null, new Date()));
+        List<Ad> data = Arrays.asList(new GarageAd(1, "",
+                pictures, 10, null, new Date()));
         this.adService = new AdServiceImpl(createAdRepositoryMock(data, updated));
         // WHEN
         this.adService.assignScoreForAllAds();

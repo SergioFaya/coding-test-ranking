@@ -1,7 +1,7 @@
 package com.idealista.application.utils;
 
-import com.idealista.application.model.Ad;
 import com.idealista.application.model.Picture;
+import com.idealista.application.model.ad.Ad;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import org.springframework.data.util.Pair;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class ModelAssertion {
 
     public static void assertPublicAdVos(List<PublicAdVo> expected, List<PublicAdVo> actual) {
-        if(expected != null && actual!= null) {
+        if (expected != null && actual != null) {
             assertEquals(expected.size(), actual.size());
             IntStream
                     .range(0, expected.size())
@@ -36,8 +36,8 @@ public class ModelAssertion {
     }
 
 
-    public static void assertQualityAdVos(List<QualityAdVo> expected, List<QualityAdVo> actual){
-        if(expected != null && actual!= null) {
+    public static void assertQualityAdVos(List<QualityAdVo> expected, List<QualityAdVo> actual) {
+        if (expected != null && actual != null) {
             assertEquals(expected.size(), actual.size());
             IntStream
                     .range(0, expected.size())
@@ -58,7 +58,7 @@ public class ModelAssertion {
     }
 
     public static void assertAds(List<Ad> expected, List<Ad> actual) {
-        if(expected != null && actual!= null) {
+        if (expected != null && actual != null) {
             assertEquals(expected.size(), actual.size());
             IntStream
                     .range(0, expected.size())
@@ -67,29 +67,28 @@ public class ModelAssertion {
         }
     }
 
-    public static void assertAd(Ad expected, Ad actual){
+    public static void assertAd(Ad expected, Ad actual) {
         assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getTypology(), actual.getTypology());
         assertEquals(expected.getDescription(), actual.getDescription());
         assertPictures(expected.getPictures(), actual.getPictures());
-        assertEquals(expected.getHouseSize(), actual.getHouseSize());
-        assertEquals(expected.getGardenSize(), actual.getGardenSize());
+        assertEquals(expected.getSize(), actual.getSize());
+        // assertEquals(expected.getGardenSize(), actual.getGardenSize());
         assertEquals(expected.getScore(), actual.getScore());
         assertEquals(expected.getIrrelevantSince(), actual.getIrrelevantSince());
 
     }
 
-    public static void assertPictures(List<Picture> expected, List<Picture> actual){
-        if(expected != null && actual!= null){
+    public static void assertPictures(List<Picture> expected, List<Picture> actual) {
+        if (expected != null && actual != null) {
             assertEquals(expected.size(), actual.size());
             IntStream
                     .range(0, expected.size())
-                    .mapToObj(i -> Pair.of(expected.get(i),actual.get(i)))
-                    .forEach(it -> assertPicture(it.getFirst(),it.getSecond()));
+                    .mapToObj(i -> Pair.of(expected.get(i), actual.get(i)))
+                    .forEach(it -> assertPicture(it.getFirst(), it.getSecond()));
         }
     }
 
-    public static void assertPicture(Picture expected, Picture actual){
+    public static void assertPicture(Picture expected, Picture actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getUrl(), actual.getUrl());
         assertEquals(expected.getQuality(), actual.getQuality());

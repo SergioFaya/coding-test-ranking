@@ -1,41 +1,40 @@
-package com.idealista.application.model;
+package com.idealista.application.model.ad;
 
-import com.idealista.application.model.enums.AdTypology;
+import com.idealista.application.model.Picture;
+import com.idealista.application.service.impl.AbstractScoreComputer;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Common behaviour of all {@link Ad} related to different locations
+ */
 @Entity
-public class Ad {
+public abstract class Ad extends AbstractScoreComputer {
 
     @Id
     private Integer id;
-    @Enumerated(EnumType.STRING)
-    private AdTypology typology;
     private String description;
     @OneToMany
     private List<Picture> pictures;
-    private Integer houseSize;
-    private Integer gardenSize;
+    private Integer size;
     private Integer score;
     private Date irrelevantSince;
 
-    public Ad() {
-    }
-
-    public Ad(Integer id, AdTypology typology, String description, List<Picture> pictures,
-              Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
+    protected Ad(Integer id, String description, List<Picture> pictures,
+                 Integer size, Integer score, Date irrelevantSince) {
         this.id = id;
-        this.typology = typology;
         this.description = description;
         this.pictures = pictures;
-        this.houseSize = houseSize;
-        this.gardenSize = gardenSize;
+        this.size = size;
         this.score = score;
         this.irrelevantSince = irrelevantSince;
     }
+
 
     public Integer getId() {
         return this.id;
@@ -43,14 +42,6 @@ public class Ad {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public AdTypology getTypology() {
-        return this.typology;
-    }
-
-    public void setTypology(AdTypology typology) {
-        this.typology = typology;
     }
 
     public String getDescription() {
@@ -83,34 +74,19 @@ public class Ad {
         this.pictures = pictures;
     }
 
-    public Integer getHouseSize() {
-        checkHouseSize();
-        return this.houseSize;
+    public Integer getSize() {
+        checkSize();
+        return this.size;
     }
 
-    private void checkHouseSize() {
-        if (this.houseSize == null) {
-            this.houseSize = Integer.valueOf(0);
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    private void checkSize() {
+        if (this.size == null) {
+            this.size = Integer.valueOf(0);
         }
-    }
-
-    public void setHouseSize(Integer houseSize) {
-        this.houseSize = houseSize;
-    }
-
-    public Integer getGardenSize() {
-        checkGardenSize();
-        return this.gardenSize;
-    }
-
-    private void checkGardenSize() {
-        if (this.gardenSize == null) {
-            this.gardenSize = Integer.valueOf(0);
-        }
-    }
-
-    public void setGardenSize(Integer gardenSize) {
-        this.gardenSize = gardenSize;
     }
 
     public Integer getScore() {
@@ -135,5 +111,10 @@ public class Ad {
     public void setIrrelevantSince(Date irrelevantSince) {
         this.irrelevantSince = irrelevantSince;
     }
+
+    // TODO; add adapter to get adsVo
+    //  public abstract PublicAdVo getPublicAdVo();
+
+    //public abstract QualityAdVo getQualityAdVo();
 
 }
