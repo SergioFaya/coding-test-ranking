@@ -1,5 +1,6 @@
 package com.idealista.application.service.impl;
 
+import com.idealista.application.model.ad.Ad;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.repository.AdRepository;
@@ -40,13 +41,17 @@ public class AdServiceImpl implements AdService {
     public List<PublicAdVo> findAllPublicAds() {
         var ads = this.repository.findAll()
                 .stream()
-                .filter(ad -> ad.getScore() > PUBLIC_QUALITY_SCORE_REQUIRED)
+                .filter(ad -> ad.getScore() >= PUBLIC_QUALITY_SCORE_REQUIRED)
+                .filter(this::isRelevant)
                 .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
                 .map(ad -> AdsFactory.createPublicAdVo(ad))
                 .collect(toList());
         return ads;
     }
 
+    private boolean isRelevant(Ad ad) {
+        return ad.getIrrelevantSince() == null;
+    }
 
     /**
      * Computes the score field of the ads based on the content of each field

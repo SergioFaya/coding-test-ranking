@@ -2,6 +2,7 @@ package com.idealista.application.utils;
 
 import com.idealista.application.model.Picture;
 import com.idealista.application.model.ad.Ad;
+import com.idealista.application.model.ad.ChaletAd;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import org.springframework.data.util.Pair;
@@ -72,7 +73,10 @@ public class ModelAssertion {
         assertEquals(expected.getDescription(), actual.getDescription());
         assertPictures(expected.getPictures(), actual.getPictures());
         assertEquals(expected.getSize(), actual.getSize());
-        // assertEquals(expected.getGardenSize(), actual.getGardenSize());
+        if (expected instanceof ChaletAd) {
+            assertEquals(((ChaletAd) expected).getGardenSize(), ((ChaletAd) actual).getGardenSize());
+        }
+
         assertEquals(expected.getScore(), actual.getScore());
         assertEquals(expected.getIrrelevantSince(), actual.getIrrelevantSince());
 
