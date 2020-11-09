@@ -1,7 +1,8 @@
 package com.idealista.application.model;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
+import com.idealista.application.model.enums.AdTypology;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,8 @@ public class Ad {
 
     @Id
     private Integer id;
-    private String typology;
+    @Enumerated(EnumType.STRING)
+    private AdTypology typology;
     private String description;
     @OneToMany
     private List<Picture> pictures;
@@ -20,9 +22,10 @@ public class Ad {
     private Integer score;
     private Date irrelevantSince;
 
-    public Ad() {}
+    public Ad() {
+    }
 
-    public Ad(Integer id, String typology, String description, List<Picture> pictures,
+    public Ad(Integer id, AdTypology typology, String description, List<Picture> pictures,
               Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
         this.id = id;
         this.typology = typology;
@@ -35,35 +38,28 @@ public class Ad {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getTypology() {
-        checkTypology();
-        return typology;
+    public AdTypology getTypology() {
+        return this.typology;
     }
 
-    private void checkTypology(){
-        if (this.typology == null){
-            this.typology = new String();
-        }
-    }
-
-    public void setTypology(String typology) {
+    public void setTypology(AdTypology typology) {
         this.typology = typology;
     }
 
     public String getDescription() {
         checkDescription();
-        return description;
+        return this.description;
     }
 
-    private void checkDescription(){
-        if (this.description == null){
+    private void checkDescription() {
+        if (this.description == null) {
             this.description = new String();
         }
     }
@@ -74,11 +70,11 @@ public class Ad {
 
     public List<Picture> getPictures() {
         checkPictures();
-        return pictures;
+        return this.pictures;
     }
 
     private void checkPictures() {
-        if (pictures == null){
+        if (this.pictures == null) {
             this.pictures = new ArrayList<>();
         }
     }
@@ -89,11 +85,11 @@ public class Ad {
 
     public Integer getHouseSize() {
         checkHouseSize();
-        return houseSize;
+        return this.houseSize;
     }
 
     private void checkHouseSize() {
-        if(this.houseSize == null){
+        if (this.houseSize == null) {
             this.houseSize = Integer.valueOf(0);
         }
     }
@@ -104,11 +100,11 @@ public class Ad {
 
     public Integer getGardenSize() {
         checkGardenSize();
-        return gardenSize;
+        return this.gardenSize;
     }
 
     private void checkGardenSize() {
-        if(this.gardenSize == null){
+        if (this.gardenSize == null) {
             this.gardenSize = Integer.valueOf(0);
         }
     }
@@ -119,11 +115,11 @@ public class Ad {
 
     public Integer getScore() {
         checkScore();
-        return score;
+        return this.score;
     }
 
     private void checkScore() {
-        if (this.score == null){
+        if (this.score == null) {
             this.score = Integer.valueOf(0);
         }
     }
@@ -133,7 +129,7 @@ public class Ad {
     }
 
     public Date getIrrelevantSince() {
-        return irrelevantSince;
+        return this.irrelevantSince;
     }
 
     public void setIrrelevantSince(Date irrelevantSince) {

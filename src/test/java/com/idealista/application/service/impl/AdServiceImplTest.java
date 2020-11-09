@@ -8,13 +8,17 @@ import com.idealista.application.utils.ModelAssertion;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.idealista.application.utils.RepositoryMockFactory.createAdRepositoryMock;
-import static java.util.stream.Collectors.toList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import static com.idealista.application.model.enums.AdTypology.CHALET;
+import static com.idealista.application.model.enums.AdTypology.FLAT;
+import static com.idealista.application.model.enums.PictureQuality.HD;
+import static com.idealista.application.model.enums.PictureQuality.SD;
+import static com.idealista.application.utils.RepositoryMockFactory.createAdRepositoryMock;
+import static java.util.stream.Collectors.toList;
 
 public class AdServiceImplTest {
 
@@ -22,30 +26,30 @@ public class AdServiceImplTest {
 
     private List<Ad> ads;
     private List<Picture> pictures;
-    
-    @Before
-    public void setUp(){
-        ads = new ArrayList<>();
-        pictures = new ArrayList<>();
 
-        pictures.add(new Picture(4, "url", "HD"));
-        ads.add(new Ad(1, "CHALET", "Este piso es una ganga, compra, compra, COMPRA!!!!!",
+    @Before
+    public void setUp() {
+        this.ads = new ArrayList<>();
+        this.pictures = new ArrayList<>();
+
+        this.pictures.add(new Picture(4, "url", HD));
+        this.ads.add(new Ad(1, CHALET, "Este piso es una ganga, compra, compra, COMPRA!!!!!",
                 Arrays.asList(), 300, 100, 30, new Date()));
-        ads.add(new Ad(2, "FLAT", "Nuevo ático céntrico recién reformado. " +
-                "No deje pasar la oportunidad y adquiera este ático de lujo", pictures, 300,
+        this.ads.add(new Ad(2, FLAT, "Nuevo ático céntrico recién reformado. " +
+                "No deje pasar la oportunidad y adquiera este ático de lujo", this.pictures, 300,
                 10, 100, new Date()));
 
-        adService = new AdServiceImpl(createAdRepositoryMock(ads));
+        this.adService = new AdServiceImpl(createAdRepositoryMock(this.ads));
     }
 
     @Test
-    public void shouldFindAllQualityAds(){
+    public void shouldFindAllQualityAds() {
         // GIVEN
-        var expected = ads.stream()
-                .map( ad -> AdsFactory.createQualityAdVo(ad))
+        var expected = this.ads.stream()
+                .map(ad -> AdsFactory.createQualityAdVo(ad))
                 .collect(toList());
         // WHEN
-        var actual = adService.findAllQualityAds();
+        var actual = this.adService.findAllQualityAds();
         // THEN
         ModelAssertion.assertQualityAdVos(expected, actual);
     }
@@ -53,15 +57,31 @@ public class AdServiceImplTest {
     @Test
     public void shouldFindAllPublicAds(){
         // GIVEN
-        var expected = ads.stream()
+        var expected = this.ads.stream()
                 .sorted((ad1, ad2) -> Integer.compare(ad2.getScore(), ad1.getScore()))
-                .map( ad -> AdsFactory.createPublicAdVo(ad))
+                .map(ad -> AdsFactory.createPublicAdVo(ad))
                 .collect(toList());
         // WHEN
-        var actual = adService.findAllPublicAds();
+        var actual = this.adService.findAllPublicAds();
         // THEN
         ModelAssertion.assertPublicAdVos(expected, actual);
     }
 
+    @Test
+    public void shouldAssignScoreForAllAds_noPictures() {
+        // GIVEN
+        var expected = new Ad(1, FLAT, "",
+                Arrays.asList(), 10, 10, 100, new Date());
+
+    }
+
+    @Test
+    public void shouldAssignScoreForAllAds_HDAndNotHDPhotos() {
+        // GIVEN
+        var pictures = Arrays.asList(new Picture(1, "url", HD), new Picture(2, "url", SD));
+        var expected = new Ad(1, FLAT, "",
+                pictures, 10, 10, 100, new Date());
+
+    }
 }
 

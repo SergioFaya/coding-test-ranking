@@ -1,6 +1,10 @@
 package com.idealista.application.model;
 
+import com.idealista.application.model.enums.PictureQuality;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 @Entity
@@ -9,18 +13,20 @@ public class Picture {
     @Id
     private Integer id;
     private String url;
-    private String quality;
+    @Enumerated(EnumType.STRING)
+    private PictureQuality quality;
 
-    public Picture() {}
+    public Picture() {
+    }
 
-    public Picture(Integer id, String url, String quality) {
+    public Picture(Integer id, String url, PictureQuality quality) {
         this.id = id;
         this.url = url;
         this.quality = quality;
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -28,18 +34,18 @@ public class Picture {
     }
 
     public String getUrl() {
-        return url;
+        return this.url;
     }
 
     public void setUrl(String url) {
         this.url = url;
     }
 
-    public String getQuality() {
-        return quality;
+    public PictureQuality getQuality() {
+        return this.quality;
     }
 
-    public void setQuality(String quality) {
+    public void setQuality(PictureQuality quality) {
         this.quality = quality;
     }
 }

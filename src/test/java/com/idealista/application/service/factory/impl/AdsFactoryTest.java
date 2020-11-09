@@ -12,6 +12,10 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.idealista.application.model.enums.AdTypology.CHALET;
+import static com.idealista.application.model.enums.AdTypology.FLAT;
+import static com.idealista.application.model.enums.PictureQuality.HD;
+import static com.idealista.application.model.enums.PictureQuality.SD;
 import static java.util.stream.Collectors.toList;
 
 
@@ -21,12 +25,12 @@ public class AdsFactoryTest {
     private Ad defaultAd_noPictures;
 
     @Before
-    public void setUp(){
-        new Picture(4, "url", "HD");
-        this.defaultAd_noPictures = new Ad(1, "CHALET", "Este piso es una ganga, compra, compra, COMPRA!!!!!",
+    public void setUp() {
+        new Picture(4, "url", HD);
+        this.defaultAd_noPictures = new Ad(1, CHALET, "Este piso es una ganga, compra, compra, COMPRA!!!!!",
                 Arrays.asList(), 300, 10, 100, new Date());
-        this.defaultAd_withPictures = new Ad(1, "CHALET", "Este piso es una ganga, compra, compra, COMPRA!!!!!",
-                Arrays.asList(new Picture(1, "url", "HD"), new Picture(2, "url", "SD")),
+        this.defaultAd_withPictures = new Ad(1, FLAT, "Este piso es una ganga, compra, compra, COMPRA!!!!!",
+                Arrays.asList(new Picture(1, "url", HD), new Picture(2, "url", SD)),
                 300, 17, 10, new Date());
     }
 
@@ -34,64 +38,64 @@ public class AdsFactoryTest {
     public void shouldCreatePublicAdVo_noPictures() {
         // GIVEN
         var expected = new PublicAdVo();
-        expected.setId(defaultAd_noPictures.getId());
-        expected.setDescription(defaultAd_noPictures.getDescription());
-        expected.setGardenSize(defaultAd_noPictures.getGardenSize());
-        expected.setHouseSize(defaultAd_noPictures.getHouseSize());
-        expected.setTypology(defaultAd_noPictures.getTypology());
+        expected.setId(this.defaultAd_noPictures.getId());
+        expected.setDescription(this.defaultAd_noPictures.getDescription());
+        expected.setGardenSize(this.defaultAd_noPictures.getGardenSize());
+        expected.setHouseSize(this.defaultAd_noPictures.getHouseSize());
+        expected.setTypology(this.defaultAd_noPictures.getTypology().name());
         // WHEN
-        var actual = AdsFactory.createPublicAdVo(defaultAd_noPictures);
+        var actual = AdsFactory.createPublicAdVo(this.defaultAd_noPictures);
         // THEN
-        ModelAssertion.assertPublicAdVo(expected,actual);
+        ModelAssertion.assertPublicAdVo(expected, actual);
     }
 
     @Test
     public void shouldCreatePublicAdVo_withPictures() {
         // GIVEN
         var expected = new PublicAdVo();
-        expected.setId(defaultAd_withPictures.getId());
-        expected.setDescription(defaultAd_withPictures.getDescription());
-        expected.setGardenSize(defaultAd_withPictures.getGardenSize());
-        expected.setHouseSize(defaultAd_withPictures.getHouseSize());
-        expected.setTypology(defaultAd_withPictures.getTypology());
-        expected.setPictureUrls(defaultAd_withPictures.getPictures().stream().map(Picture::getUrl).collect(toList()));
+        expected.setId(this.defaultAd_withPictures.getId());
+        expected.setDescription(this.defaultAd_withPictures.getDescription());
+        expected.setGardenSize(this.defaultAd_withPictures.getGardenSize());
+        expected.setHouseSize(this.defaultAd_withPictures.getHouseSize());
+        expected.setTypology(this.defaultAd_withPictures.getTypology().name());
+        expected.setPictureUrls(this.defaultAd_withPictures.getPictures().stream().map(Picture::getUrl).collect(toList()));
         // WHEN
-        var actual = AdsFactory.createPublicAdVo(defaultAd_withPictures);
+        var actual = AdsFactory.createPublicAdVo(this.defaultAd_withPictures);
         // THEN
-        ModelAssertion.assertPublicAdVo(expected,actual);
+        ModelAssertion.assertPublicAdVo(expected, actual);
     }
 
     @Test
     public void shouldCreateQualityAdVo_noPictures() {
         // GIVEN
         var expected = new QualityAdVo();
-        expected.setId(defaultAd_noPictures.getId());
-        expected.setDescription(defaultAd_noPictures.getDescription());
-        expected.setGardenSize(defaultAd_noPictures.getGardenSize());
-        expected.setHouseSize(defaultAd_noPictures.getHouseSize());
-        expected.setTypology(defaultAd_noPictures.getTypology());
+        expected.setId(this.defaultAd_noPictures.getId());
+        expected.setDescription(this.defaultAd_noPictures.getDescription());
+        expected.setGardenSize(this.defaultAd_noPictures.getGardenSize());
+        expected.setHouseSize(this.defaultAd_noPictures.getHouseSize());
+        expected.setTypology(this.defaultAd_noPictures.getTypology().name());
         // WHEN
-        var actual = AdsFactory.createQualityAdVo(defaultAd_noPictures);
+        var actual = AdsFactory.createQualityAdVo(this.defaultAd_noPictures);
         // THEN
-        ModelAssertion.assertPublicAdVo(expected,actual);
+        ModelAssertion.assertPublicAdVo(expected, actual);
     }
 
     @Test
     public void shouldCreateQualityAdVo_withPictures() {
         // GIVEN
         var expected = new QualityAdVo();
-        expected.setId(defaultAd_withPictures.getId());
-        expected.setDescription(defaultAd_withPictures.getDescription());
-        expected.setGardenSize(defaultAd_withPictures.getGardenSize());
-        expected.setHouseSize(defaultAd_withPictures.getHouseSize());
-        expected.setTypology(defaultAd_withPictures.getTypology());
-        expected.setPictureUrls(defaultAd_withPictures.getPictures().stream().map(Picture::getUrl).collect(toList()));
-        expected.setScore(defaultAd_withPictures.getScore());
-        expected.setIrrelevantSince(defaultAd_withPictures.getIrrelevantSince());
+        expected.setId(this.defaultAd_withPictures.getId());
+        expected.setDescription(this.defaultAd_withPictures.getDescription());
+        expected.setGardenSize(this.defaultAd_withPictures.getGardenSize());
+        expected.setHouseSize(this.defaultAd_withPictures.getHouseSize());
+        expected.setTypology(this.defaultAd_withPictures.getTypology().name());
+        expected.setPictureUrls(this.defaultAd_withPictures.getPictures().stream().map(Picture::getUrl).collect(toList()));
+        expected.setScore(this.defaultAd_withPictures.getScore());
+        expected.setIrrelevantSince(this.defaultAd_withPictures.getIrrelevantSince());
         // WHEN
-        var actual = AdsFactory.createQualityAdVo(defaultAd_withPictures);
+        var actual = AdsFactory.createQualityAdVo(this.defaultAd_withPictures);
         // THEN
-        ModelAssertion.assertPublicAdVo(expected,actual);
+        ModelAssertion.assertPublicAdVo(expected, actual);
     }
 
 }

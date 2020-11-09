@@ -4,11 +4,8 @@ import com.idealista.application.model.Ad;
 import com.idealista.application.model.Picture;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -16,7 +13,7 @@ public class AdsFactory {
 
     private static void fillCommonFields(PublicAdVo vo, Ad ad){
         vo.setId(ad.getId());
-        vo.setTypology(ad.getTypology());
+        vo.setTypology(ad.getTypology().name());
         vo.setDescription(ad.getDescription());
         vo.setHouseSize(ad.getHouseSize());
         vo.setGardenSize(ad.getGardenSize());

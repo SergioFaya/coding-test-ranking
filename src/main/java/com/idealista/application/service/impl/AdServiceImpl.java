@@ -1,9 +1,9 @@
 package com.idealista.application.service.impl;
 
 import com.idealista.application.model.vo.PublicAdVo;
+import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.repository.AdRepository;
 import com.idealista.application.service.AdService;
-import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.service.factory.AdsFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,8 @@ public class AdServiceImpl implements AdService {
     @Autowired
     private AdRepository repository;
 
-    public AdServiceImpl() { }
+    public AdServiceImpl() {
+    }
 
     public AdServiceImpl(AdRepository repository) {
         this.repository = repository;
@@ -26,7 +27,7 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public List<QualityAdVo> findAllQualityAds() {
-        var ads = repository.findAll()
+        var ads = this.repository.findAll()
                 .stream()
                 .map(ad -> AdsFactory.createQualityAdVo(ad))
                 .collect(toList());
@@ -35,12 +36,22 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public List<PublicAdVo> findAllPublicAds() {
-        var ads = repository.findAll()
+        var ads = this.repository.findAll()
                 .stream()
                 .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
                 .map(ad -> AdsFactory.createPublicAdVo(ad))
                 .collect(toList());
         return ads;
     }
+
+
+    /**
+     * Computes the score field of the ads based on the content of each field
+     */
+    @Override
+    public void assignScoreForAllAds() {
+        // TODO: implement
+    }
+
 
 }
