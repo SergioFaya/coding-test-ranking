@@ -18,8 +18,7 @@ public class AdServiceImpl implements AdService {
     @Autowired
     private AdRepository repository;
 
-    public AdServiceImpl() {
-    }
+    public AdServiceImpl() { }
 
     public AdServiceImpl(AdRepository repository) {
         this.repository = repository;
@@ -36,7 +35,12 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public List<PublicAdVo> findAllPublicAds() {
-        return null;
+        var ads = repository.findAll()
+                .stream()
+                .sorted((o1, o2) -> Integer.compare(o2.getScore(), o1.getScore()))
+                .map(ad -> AdsFactory.createPublicAdVo(ad))
+                .collect(toList());
+        return ads;
     }
 
 }

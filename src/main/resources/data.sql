@@ -6,7 +6,7 @@ INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRREL
 VALUES (2, 'FLAT', 'Nuevo ático céntrico recién reformado. No deje pasar la oportunidad y adquiera este ático de lujo', 300, null, null, null)
 ;
 INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
-VALUES (3, 'CHALET', '', 300, null, null, null)
+VALUES (3, 'CHALET', '', 300, null, 100, null)
 ;
 INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
 VALUES (4, 'FLAT', 'Ático céntrico muy luminoso y recién reformado, parece nuevo',300, null, null, null)
@@ -18,7 +18,7 @@ INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRREL
 VALUES (6, 'GARAGE', '', 300, null, null, null)
 ;
 INSERT INTO AD (ID, TYPOLOGY, DESCRIPTION, HOUSE_SIZE, GARDEN_SIZE, SCORE, IRRELEVANT_SINCE)
-VALUES (7, 'GARAGE', 'Garaje en el centro de Albacete', 300, null, null, null)
+VALUES (7, 'GARAGE', 'Garaje en el centro de Albacete', 300, null, 1, null)
 ;
 
 INSERT INTO PICTURE (ID,URL, QUALITY)

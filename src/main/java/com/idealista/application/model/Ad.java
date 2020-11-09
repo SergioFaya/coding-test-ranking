@@ -2,6 +2,7 @@ package com.idealista.application.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,14 @@ public class Ad {
     }
 
     public String getTypology() {
+        checkTypology();
         return typology;
+    }
+
+    private void checkTypology(){
+        if (this.typology == null){
+            this.typology = new String();
+        }
     }
 
     public void setTypology(String typology) {
@@ -50,7 +58,14 @@ public class Ad {
     }
 
     public String getDescription() {
+        checkDescription();
         return description;
+    }
+
+    private void checkDescription(){
+        if (this.description == null){
+            this.description = new String();
+        }
     }
 
     public void setDescription(String description) {
@@ -58,7 +73,14 @@ public class Ad {
     }
 
     public List<Picture> getPictures() {
+        checkPictures();
         return pictures;
+    }
+
+    private void checkPictures() {
+        if (pictures == null){
+            this.pictures = new ArrayList<>();
+        }
     }
 
     public void setPictures(List<Picture> pictures) {
@@ -66,7 +88,14 @@ public class Ad {
     }
 
     public Integer getHouseSize() {
+        checkHouseSize();
         return houseSize;
+    }
+
+    private void checkHouseSize() {
+        if(this.houseSize == null){
+            this.houseSize = Integer.valueOf(0);
+        }
     }
 
     public void setHouseSize(Integer houseSize) {
@@ -74,7 +103,14 @@ public class Ad {
     }
 
     public Integer getGardenSize() {
+        checkGardenSize();
         return gardenSize;
+    }
+
+    private void checkGardenSize() {
+        if(this.gardenSize == null){
+            this.gardenSize = Integer.valueOf(0);
+        }
     }
 
     public void setGardenSize(Integer gardenSize) {
@@ -82,7 +118,14 @@ public class Ad {
     }
 
     public Integer getScore() {
+        checkScore();
         return score;
+    }
+
+    private void checkScore() {
+        if (this.score == null){
+            this.score = Integer.valueOf(0);
+        }
     }
 
     public void setScore(Integer score) {
@@ -96,4 +139,5 @@ public class Ad {
     public void setIrrelevantSince(Date irrelevantSince) {
         this.irrelevantSince = irrelevantSince;
     }
+
 }

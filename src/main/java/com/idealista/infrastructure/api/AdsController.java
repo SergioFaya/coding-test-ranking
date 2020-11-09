@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import com.idealista.application.model.Picture;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
 import com.idealista.application.service.AdService;
@@ -34,10 +35,15 @@ public class AdsController implements InitializingBean {
         }
     }
 
-    //TODO añade url del endpoint
+    @GetMapping(value = "/public")
     public ResponseEntity<List<PublicAdVo>> publicListing() {
-        //TODO rellena el cuerpo del método
-        return ResponseEntity.notFound().build();
+        try {
+            List<PublicAdVo> ads = new ArrayList<>();
+            ads.addAll(adService.findAllPublicAds());
+            return ResponseEntity.accepted().body(ads);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     //TODO añade url del endpoint
