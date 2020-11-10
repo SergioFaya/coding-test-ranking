@@ -4,6 +4,7 @@ import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.AdTypology;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
+import com.idealista.application.service.impl.ScoreComputerGarageAd;
 
 import javax.persistence.Entity;
 import java.util.Date;
@@ -25,13 +26,9 @@ public class GarageAd extends Ad {
     }
 
     @Override
-    protected int evalDescriptionByWordCount(List<String> words) {
-        return NO_POINTS;
-    }
-
-    @Override
-    protected boolean isComplete() {
-        return !getPictures().isEmpty();
+    public void computeScore() {
+        var scoreComputer = new ScoreComputerGarageAd();
+        setScore(scoreComputer.computeScore(getDescription(), getSize(), getPictures(), isComplete()));
     }
 
     @Override
@@ -46,4 +43,7 @@ public class GarageAd extends Ad {
                 this.getSize(), 0);
     }
 
+    private boolean isComplete() {
+        return !getPictures().isEmpty();
+    }
 }

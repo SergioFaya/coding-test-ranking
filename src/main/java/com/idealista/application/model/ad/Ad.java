@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.toList;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Ad extends AbstractScoredAd implements AdVoCreator {
+public abstract class Ad implements AdVoCreator {
 
     @Id
     private Integer id;
@@ -24,19 +24,23 @@ public abstract class Ad extends AbstractScoredAd implements AdVoCreator {
     private List<Picture> pictures;
     private Integer size;
     private Date irrelevantSince;
+    private Integer score;
 
     protected Ad() {
     }
 
     protected Ad(Integer id, String description, List<Picture> pictures,
                  Integer size, Integer score, Date irrelevantSince) {
-        super(score);
         this.id = id;
         this.description = description;
         this.pictures = pictures;
         this.size = size;
+        this.score = score;
         this.irrelevantSince = irrelevantSince;
     }
+
+
+    public abstract void computeScore();
 
     public Integer getId() {
         return this.id;
@@ -101,6 +105,21 @@ public abstract class Ad extends AbstractScoredAd implements AdVoCreator {
 
     public void setIrrelevantSince(Date irrelevantSince) {
         this.irrelevantSince = irrelevantSince;
+    }
+
+    public Integer getScore() {
+        checkScore();
+        return this.score;
+    }
+
+    private void checkScore() {
+        if (this.score == null) {
+            this.score = Integer.valueOf(0);
+        }
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
 }

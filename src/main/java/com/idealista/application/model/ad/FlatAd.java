@@ -4,6 +4,7 @@ import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.AdTypology;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
+import com.idealista.application.service.impl.ScoreComputerFlatAd;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
@@ -16,12 +17,6 @@ import java.util.List;
 @Entity
 public class FlatAd extends Ad {
 
-    private static final int DESCRIPTION_LONG_POINTS = 30;
-    private static final int DESCRIPTION_LONG = 50;
-
-    private static final int DESCRIPTION_MEDIUM_POINTS = 10;
-    private static final int DESCRIPTION_MEDIUM_BOT = 20;
-
     public FlatAd() {
         super();
     }
@@ -32,23 +27,10 @@ public class FlatAd extends Ad {
     }
 
     @Override
-    protected int evalDescriptionByWordCount(List<String> words) {
-        int size = words.size();
-        if (size >= DESCRIPTION_MEDIUM_BOT && size < DESCRIPTION_LONG) {
-            return DESCRIPTION_MEDIUM_POINTS;
-        } else if (size >= DESCRIPTION_LONG) {
-            return DESCRIPTION_LONG_POINTS;
-        }
-        return NO_POINTS;
+    public void computeScore() {
+        var scoreComputer = new ScoreComputerFlatAd();
+        this.setScore(scoreComputer.computeScore(getDescription(), getSize(), getPictures(), isComplete()));
     }
-
-    @Override
-    protected boolean isComplete() {
-        return StringUtils.hasText(getDescription())
-                && !getPictures().isEmpty()
-                && getSize() > 0;
-    }
-
 
     @Override
     public QualityAdVo createQualityAd() {
@@ -60,5 +42,11 @@ public class FlatAd extends Ad {
     public PublicAdVo createPublicAd() {
         return new PublicAdVo(this.getId(), AdTypology.FLAT.name(), this.getDescription(), getPictureUrls(),
                 this.getSize(), 0);
+    }
+
+    private boolean isComplete() {
+        return StringUtils.hasText(getDescription())
+                && !getPictures().isEmpty()
+                && getSize() > 0;
     }
 }

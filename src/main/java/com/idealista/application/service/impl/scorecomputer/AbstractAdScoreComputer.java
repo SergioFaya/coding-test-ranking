@@ -1,16 +1,17 @@
-package com.idealista.application.model.ad;
+package com.idealista.application.service.impl.scorecomputer;
 
 import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.DescriptionKeywords;
 import com.idealista.application.model.enums.PictureQuality;
+import com.idealista.application.service.ScoreComputerStrategy;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.MappedSuperclass;
 import java.util.Arrays;
 import java.util.List;
 
-@MappedSuperclass
-public abstract class AbstractScoredAd {
+@Service
+public abstract class AbstractAdScoreComputer implements ScoreComputerStrategy {
 
     private static final String WORD_SPLIT_REGEX = " +";
 
@@ -28,23 +29,15 @@ public abstract class AbstractScoredAd {
     private static final int MAX_SCORE = 100;
     private static final int MIN_SCORE = 0;
 
-    private Integer score;
-
-    protected AbstractScoredAd() {
-    }
-
-    protected AbstractScoredAd(Integer score) {
-        this.score = score;
-    }
-
-    public final void computeScore() {
+    @Override
+    public int computeScore(String description, Integer size, List<Picture> pictures, boolean isComplete) {
         int points = 0;
-        points += evalPictures(getPictures());
-        points += evalDescription(getDescription());
-        if (isComplete()) {
+        points += evalPictures(pictures);
+        points += evalDescription(description);
+        if (isComplete) {
             points += COMPLETE_AD_POINTS;
         }
-        this.score = boundScore(points);
+        return boundScore(points);
     }
 
     private int boundScore(int points) {
@@ -94,26 +87,6 @@ public abstract class AbstractScoredAd {
         }
     }
 
-    public Integer getScore() {
-        checkScore();
-        return this.score;
-    }
-
-    private void checkScore() {
-        if (this.score == null) {
-            this.score = Integer.valueOf(0);
-        }
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
     protected abstract int evalDescriptionByWordCount(List<String> words);
 
-    protected abstract List<Picture> getPictures();
-
-    protected abstract String getDescription();
-
-    protected abstract boolean isComplete();
 }
