@@ -1,7 +1,6 @@
 package com.idealista.application.model.ad;
 
 import com.idealista.application.model.Picture;
-import com.idealista.application.model.enums.AdTypology;
 import com.idealista.application.service.AdVoCreator;
 
 import javax.persistence.*;
@@ -104,10 +103,4 @@ public abstract class Ad extends AbstractScoredAd implements AdVoCreator {
         this.irrelevantSince = irrelevantSince;
     }
 
-    /**
-     * Returns an {@link AdTypology} representing the type of {@link Ad}
-     *
-     * @return
-     */
-    public abstract AdTypology getTypology();
 }

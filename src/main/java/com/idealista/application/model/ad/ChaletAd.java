@@ -41,11 +41,6 @@ public class ChaletAd extends Ad {
     }
 
     @Override
-    public AdTypology getTypology() {
-        return AdTypology.CHALET;
-    }
-
-    @Override
     protected int evalDescriptionByWordCount(List<String> words) {
         if (words.size() > DESCRIPTION_LONG) {
             return DESCRIPTION_LONG_POINTS;
@@ -63,13 +58,13 @@ public class ChaletAd extends Ad {
 
     @Override
     public QualityAdVo createQualityAd() {
-        return new QualityAdVo(this.getId(), this.getTypology().name(), this.getDescription(), this.getPictureUrls(),
+        return new QualityAdVo(this.getId(), AdTypology.CHALET.name(), this.getDescription(), this.getPictureUrls(),
                 this.getSize(), this.getGardenSize(), this.getScore(), this.getIrrelevantSince());
     }
 
     @Override
     public PublicAdVo createPublicAd() {
-        return new PublicAdVo(this.getId(), this.getTypology().name(), this.getDescription(), this.getPictureUrls(),
+        return new PublicAdVo(this.getId(), AdTypology.CHALET.name(), this.getDescription(), this.getPictureUrls(),
                 this.getSize(), this.getGardenSize());
     }
 }

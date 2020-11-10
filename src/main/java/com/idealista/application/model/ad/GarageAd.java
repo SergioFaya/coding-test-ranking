@@ -25,31 +25,24 @@ public class GarageAd extends Ad {
     }
 
     @Override
-    public AdTypology getTypology() {
-        return AdTypology.GARAGE;
-    }
-
-    @Override
     protected int evalDescriptionByWordCount(List<String> words) {
-        // there is no additional points by description length
         return NO_POINTS;
     }
 
     @Override
     protected boolean isComplete() {
-        // a garage is completed by having at least a photo
         return !getPictures().isEmpty();
     }
 
     @Override
     public QualityAdVo createQualityAd() {
-        return new QualityAdVo(this.getId(), this.getTypology().name(), this.getDescription(), getPictureUrls(),
+        return new QualityAdVo(this.getId(), AdTypology.GARAGE.name(), this.getDescription(), getPictureUrls(),
                 this.getSize(), 0, this.getScore(), this.getIrrelevantSince());
     }
 
     @Override
     public PublicAdVo createPublicAd() {
-        return new PublicAdVo(this.getId(), this.getTypology().name(), this.getDescription(), getPictureUrls(),
+        return new PublicAdVo(this.getId(), AdTypology.GARAGE.name(), this.getDescription(), getPictureUrls(),
                 this.getSize(), 0);
     }
 

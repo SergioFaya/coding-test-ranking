@@ -32,11 +32,6 @@ public class FlatAd extends Ad {
     }
 
     @Override
-    public AdTypology getTypology() {
-        return AdTypology.FLAT;
-    }
-
-    @Override
     protected int evalDescriptionByWordCount(List<String> words) {
         int size = words.size();
         if (size >= DESCRIPTION_MEDIUM_BOT && size < DESCRIPTION_LONG) {
@@ -57,13 +52,13 @@ public class FlatAd extends Ad {
 
     @Override
     public QualityAdVo createQualityAd() {
-        return new QualityAdVo(this.getId(), this.getTypology().name(), this.getDescription(), getPictureUrls(),
+        return new QualityAdVo(this.getId(), AdTypology.FLAT.name(), this.getDescription(), getPictureUrls(),
                 this.getSize(), 0, this.getScore(), this.getIrrelevantSince());
     }
 
     @Override
     public PublicAdVo createPublicAd() {
-        return new PublicAdVo(this.getId(), this.getTypology().name(), this.getDescription(), getPictureUrls(),
+        return new PublicAdVo(this.getId(), AdTypology.FLAT.name(), this.getDescription(), getPictureUrls(),
                 this.getSize(), 0);
     }
 }
