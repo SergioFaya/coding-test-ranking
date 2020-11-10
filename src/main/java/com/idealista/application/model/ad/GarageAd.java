@@ -4,7 +4,7 @@ import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.AdTypology;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
-import com.idealista.application.service.impl.ScoreComputerGarageAd;
+import com.idealista.application.service.impl.scorecomputer.ScoreComputerGarageAd;
 
 import javax.persistence.Entity;
 import java.util.Date;

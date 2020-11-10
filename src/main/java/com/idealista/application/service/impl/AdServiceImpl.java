@@ -42,12 +42,12 @@ public class AdServiceImpl implements AdService {
                 .stream()
                 .filter(this::isMinimumScore)
                 .filter(this::isRelevant)
-                .sorted(this::comparteByScoreDesc)
+                .sorted(this::compareByScoreDesc)
                 .map(AdVoCreator::createPublicAd)
                 .collect(toList());
     }
 
-    private int comparteByScoreDesc(Ad o1, Ad o2) {
+    private int compareByScoreDesc(Ad o1, Ad o2) {
         return Integer.compare(o2.getScore(), o1.getScore());
     }
 
@@ -70,6 +70,5 @@ public class AdServiceImpl implements AdService {
             this.repository.save(ad);
         }
     }
-
 
 }

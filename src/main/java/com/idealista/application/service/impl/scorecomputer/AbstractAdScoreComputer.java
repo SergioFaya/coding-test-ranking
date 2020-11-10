@@ -10,6 +10,10 @@ import org.springframework.util.StringUtils;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Defines common functionality to compute the score of {@link com.idealista.application.model.ad.Ad} and leaves some
+ * implementation to be configured to children classes
+ */
 @Service
 public abstract class AbstractAdScoreComputer implements ScoreComputerStrategy {
 
@@ -79,7 +83,7 @@ public abstract class AbstractAdScoreComputer implements ScoreComputerStrategy {
                 .orElse(NO_PIC_POINTS);
     }
 
-    protected int evalPicture(Picture picture) {
+    private int evalPicture(Picture picture) {
         if (picture.getQuality().equals(PictureQuality.HD)) {
             return HD_PIC_POINTS;
         } else {

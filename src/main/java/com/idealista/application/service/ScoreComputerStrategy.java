@@ -4,6 +4,9 @@ import com.idealista.application.model.Picture;
 
 import java.util.List;
 
+/**
+ * Defines the strategy template which must be followed by all score computing services
+ */
 public interface ScoreComputerStrategy {
 
     /**

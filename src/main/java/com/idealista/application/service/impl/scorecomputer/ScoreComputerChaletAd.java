@@ -1,7 +1,6 @@
-package com.idealista.application.service.impl;
+package com.idealista.application.service.impl.scorecomputer;
 
 import com.idealista.application.service.ScoreComputerStrategy;
-import com.idealista.application.service.impl.scorecomputer.AbstractAdScoreComputer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

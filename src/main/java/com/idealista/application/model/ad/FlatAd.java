@@ -4,7 +4,7 @@ import com.idealista.application.model.Picture;
 import com.idealista.application.model.enums.AdTypology;
 import com.idealista.application.model.vo.PublicAdVo;
 import com.idealista.application.model.vo.QualityAdVo;
-import com.idealista.application.service.impl.ScoreComputerFlatAd;
+import com.idealista.application.service.impl.scorecomputer.ScoreComputerFlatAd;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
