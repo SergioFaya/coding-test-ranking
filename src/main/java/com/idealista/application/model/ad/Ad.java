@@ -39,7 +39,6 @@ public abstract class Ad implements AdVoCreator {
         this.irrelevantSince = irrelevantSince;
     }
 
-
     public abstract void computeScore();
 
     public Integer getId() {
@@ -55,14 +54,14 @@ public abstract class Ad implements AdVoCreator {
         return this.description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     private void checkDescription() {
         if (this.description == null) {
             this.description = "";
         }
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Picture> getPictures() {
@@ -89,14 +88,14 @@ public abstract class Ad implements AdVoCreator {
         return this.size;
     }
 
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
     private void checkSize() {
         if (this.size == null) {
             this.size = Integer.valueOf(0);
         }
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     public Date getIrrelevantSince() {
@@ -121,5 +120,4 @@ public abstract class Ad implements AdVoCreator {
     public void setScore(Integer score) {
         this.score = score;
     }
-
 }

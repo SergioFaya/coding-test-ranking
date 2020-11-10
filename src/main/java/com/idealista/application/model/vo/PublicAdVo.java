@@ -30,7 +30,6 @@ public class PublicAdVo {
         this.gardenSize = gardenSize;
     }
 
-
     public Integer getId() {
         return this.id;
     }

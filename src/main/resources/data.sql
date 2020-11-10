@@ -55,13 +55,22 @@ INSERT INTO GARAGE_AD(ID)
 VALUES(7)
 ;
 
-
 INSERT INTO AD (ID, DESCRIPTION, SIZE, SCORE, IRRELEVANT_SINCE)
 VALUES (8,  'Este piso es una ganga', 300, 100, null)
 ;
 
 INSERT INTO CHALET_AD(ID, GARDEN_SIZE)
 VALUES(8, 10)
+;
+
+INSERT INTO AD (ID, DESCRIPTION, SIZE, SCORE, IRRELEVANT_SINCE)
+VALUES (9,
+'Este piso es una ganga. Luminoso en el centro. Ático de lujo, con buenas vistas al parque del retiro, piscina en terraza y cocina con isla.',
+ 300, null, null)
+;
+
+INSERT INTO FLAT_AD(ID)
+VALUES(9)
 ;
 
 INSERT INTO PICTURE (ID,URL, QUALITY)
@@ -88,9 +97,20 @@ VALUES (7, 'http://www.idealista.com/pictures/7', 'SD')
 INSERT INTO PICTURE (ID,URL, QUALITY)
 VALUES (8, 'http://www.idealista.com/pictures/8', 'HD')
 ;
-
 INSERT INTO PICTURE (ID,URL, QUALITY)
 VALUES (9, 'http://www.idealista.com/pictures/9', 'HD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (10, 'http://www.idealista.com/pictures/10', 'HD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (11, 'http://www.idealista.com/pictures/11', 'HD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (12, 'http://www.idealista.com/pictures/12', 'HD')
+;
+INSERT INTO PICTURE (ID,URL, QUALITY)
+VALUES (13, 'http://www.idealista.com/pictures/13', 'SD')
 ;
 
 INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
@@ -111,7 +131,18 @@ VALUES(5,8)
 INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
 VALUES(6,6)
 ;
-
 INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
 VALUES(8,9)
+;
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(9,10)
+;
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(9,11)
+;
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(9,12)
+;
+INSERT INTO AD_PICTURES (AD_ID, PICTURES_ID)
+VALUES(9,13)
 ;
